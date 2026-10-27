@@ -1,0 +1,5142 @@
+{
+ "generatedBy": "tools/bake/bake_puzzles.js",
+ "gates": "wrongAtStart = n, tipped >= 60%, nearAmbig >= 30%, packFail = 0, maxEdge <= cap",
+ "sets": {
+  "qinian-25": {
+   "ok": true,
+   "seed": 3946,
+   "stats": {
+    "pieces": 25,
+    "voxels": 2036,
+    "minSize": 50,
+    "maxSize": 140,
+    "mean": 81.44,
+    "withinBand": 20,
+    "tipped": 17,
+    "wrongAtStart": 25,
+    "nearAmbig": 8,
+    "exactAmbig": 0,
+    "slabs": 0,
+    "maxEdge": 10,
+    "cap": 10,
+    "packFail": 0
+   },
+   "segCount": [
+    9,
+    3,
+    13
+   ],
+   "tippedPct": 68,
+   "nearAmbigPct": 32,
+   "equivPieces": 0,
+   "pieces": [
+    {
+     "idx": 0,
+     "voxels": 73,
+     "ext": [
+      5,
+      5,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 5,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 19,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.336,
+      0.21,
+      0.0996
+     ]
+    },
+    {
+     "idx": 1,
+     "voxels": 50,
+     "ext": [
+      5,
+      10,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 6,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.402,
+      0.2316,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 2,
+     "voxels": 71,
+     "ext": [
+      7,
+      5,
+      9
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 23,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.234,
+      0.2376,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 3,
+     "voxels": 70,
+     "ext": [
+      6,
+      8,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.216,
+      0.1476,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 4,
+     "voxels": 71,
+     "ext": [
+      7,
+      5,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 1,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.438,
+      0.2376,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 5,
+     "voxels": 64,
+     "ext": [
+      7,
+      3,
+      8
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.228,
+      0.2976,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 6,
+     "voxels": 72,
+     "ext": [
+      8,
+      5,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 1,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.432,
+      0.21,
+      0.0996
+     ]
+    },
+    {
+     "idx": 7,
+     "voxels": 72,
+     "ext": [
+      5,
+      6,
+      8
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.414,
+      0.096,
+      0.0996
+     ]
+    },
+    {
+     "idx": 8,
+     "voxels": 74,
+     "ext": [
+      6,
+      4,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 2,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.258,
+      0.204,
+      0.0996
+     ]
+    },
+    {
+     "idx": 9,
+     "voxels": 71,
+     "ext": [
+      9,
+      3,
+      10
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 1,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.234,
+      0.2256,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 10,
+     "voxels": 119,
+     "ext": [
+      10,
+      9,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 14,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.318,
+      0.1416,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 11,
+     "voxels": 74,
+     "ext": [
+      5,
+      5,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 9,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 9,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.342,
+      0.198,
+      0.0996
+     ]
+    },
+    {
+     "idx": 12,
+     "voxels": 71,
+     "ext": [
+      6,
+      9,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.444,
+      0.114,
+      0.0996
+     ]
+    },
+    {
+     "idx": 13,
+     "voxels": 72,
+     "ext": [
+      6,
+      7,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 10,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.33,
+      0.096,
+      0.0996
+     ]
+    },
+    {
+     "idx": 14,
+     "voxels": 72,
+     "ext": [
+      5,
+      6,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 9,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 17,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.33,
+      0.2376,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 15,
+     "voxels": 73,
+     "ext": [
+      7,
+      5,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 4,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.258,
+      0.096,
+      0.0996
+     ]
+    },
+    {
+     "idx": 16,
+     "voxels": 140,
+     "ext": [
+      7,
+      7,
+      10
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.354,
+      0.102,
+      0.0996
+     ]
+    },
+    {
+     "idx": 17,
+     "voxels": 70,
+     "ext": [
+      6,
+      8,
+      7
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.438,
+      0.1476,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 18,
+     "voxels": 121,
+     "ext": [
+      7,
+      10,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 18,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.342,
+      0.1416,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 19,
+     "voxels": 73,
+     "ext": [
+      5,
+      5,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 11,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.414,
+      0.198,
+      0.0996
+     ]
+    },
+    {
+     "idx": 20,
+     "voxels": 70,
+     "ext": [
+      7,
+      5,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.342,
+      0.2376,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 21,
+     "voxels": 135,
+     "ext": [
+      10,
+      5,
+      10
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.24,
+      0.198,
+      0.0996
+     ]
+    },
+    {
+     "idx": 22,
+     "voxels": 70,
+     "ext": [
+      8,
+      6,
+      7
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.246,
+      0.1356,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 23,
+     "voxels": 69,
+     "ext": [
+      5,
+      5,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 7,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.414,
+      0.1356,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 24,
+     "voxels": 119,
+     "ext": [
+      8,
+      10,
+      8
+     ],
+     "tipped": true,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 18,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.228,
+      0.108,
+      0.0996
+     ]
+    }
+   ]
+  },
+  "qinian-50": {
+   "ok": true,
+   "seed": 7,
+   "stats": {
+    "pieces": 50,
+    "voxels": 2036,
+    "minSize": 28,
+    "maxSize": 67,
+    "mean": 40.72,
+    "withinBand": 42,
+    "tipped": 33,
+    "wrongAtStart": 50,
+    "nearAmbig": 18,
+    "exactAmbig": 0,
+    "slabs": 0,
+    "maxEdge": 8,
+    "cap": 8,
+    "packFail": 0
+   },
+   "segCount": [
+    17,
+    12,
+    21
+   ],
+   "tippedPct": 66,
+   "nearAmbigPct": 36,
+   "equivPieces": 0,
+   "pieces": [
+    {
+     "idx": 0,
+     "voxels": 34,
+     "ext": [
+      6,
+      3,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 1,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.408,
+      0.246,
+      0.0996
+     ]
+    },
+    {
+     "idx": 1,
+     "voxels": 28,
+     "ext": [
+      4,
+      8,
+      3
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 13,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.432,
+      0.2736,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 2,
+     "voxels": 35,
+     "ext": [
+      4,
+      3,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 18,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.228,
+      0.192,
+      0.0996
+     ]
+    },
+    {
+     "idx": 3,
+     "voxels": 35,
+     "ext": [
+      4,
+      4,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 8,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.204,
+      0.084,
+      0.0996
+     ]
+    },
+    {
+     "idx": 4,
+     "voxels": 38,
+     "ext": [
+      5,
+      4,
+      4
+     ],
+     "tipped": false,
+     "nearFits": 4,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.276,
+      0.252,
+      0.0996
+     ]
+    },
+    {
+     "idx": 5,
+     "voxels": 34,
+     "ext": [
+      5,
+      4,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.42,
+      0.18,
+      0.0996
+     ]
+    },
+    {
+     "idx": 6,
+     "voxels": 36,
+     "ext": [
+      5,
+      5,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.45,
+      0.198,
+      0.0996
+     ]
+    },
+    {
+     "idx": 7,
+     "voxels": 38,
+     "ext": [
+      5,
+      3,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 2,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 23,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.21,
+      0.306,
+      0.0996
+     ]
+    },
+    {
+     "idx": 8,
+     "voxels": 67,
+     "ext": [
+      8,
+      7,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 12,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.282,
+      0.1296,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 9,
+     "voxels": 34,
+     "ext": [
+      5,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 10,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.21,
+      0.2136,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 10,
+     "voxels": 35,
+     "ext": [
+      4,
+      6,
+      7
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.222,
+      0.1356,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 11,
+     "voxels": 37,
+     "ext": [
+      5,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 1,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.21,
+      0.186,
+      0.0996
+     ]
+    },
+    {
+     "idx": 12,
+     "voxels": 37,
+     "ext": [
+      5,
+      4,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 11,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.21,
+      0.2796,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 13,
+     "voxels": 37,
+     "ext": [
+      5,
+      6,
+      7
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.318,
+      0.1356,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 14,
+     "voxels": 58,
+     "ext": [
+      5,
+      5,
+      8
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 17,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.336,
+      0.09,
+      0.0996
+     ]
+    },
+    {
+     "idx": 15,
+     "voxels": 36,
+     "ext": [
+      5,
+      5,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 14,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 16,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.378,
+      0.198,
+      0.0996
+     ]
+    },
+    {
+     "idx": 16,
+     "voxels": 38,
+     "ext": [
+      5,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 7,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.21,
+      0.252,
+      0.0996
+     ]
+    },
+    {
+     "idx": 17,
+     "voxels": 37,
+     "ext": [
+      5,
+      6,
+      4
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.366,
+      0.096,
+      0.0996
+     ]
+    },
+    {
+     "idx": 18,
+     "voxels": 36,
+     "ext": [
+      5,
+      3,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 3,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.21,
+      0.2856,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 19,
+     "voxels": 35,
+     "ext": [
+      6,
+      4,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 23,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.282,
+      0.2196,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 20,
+     "voxels": 58,
+     "ext": [
+      7,
+      5,
+      8
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 3,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.282,
+      0.09,
+      0.0996
+     ]
+    },
+    {
+     "idx": 21,
+     "voxels": 33,
+     "ext": [
+      8,
+      2,
+      8
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 3,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.3,
+      0.3,
+      0.0996
+     ]
+    },
+    {
+     "idx": 22,
+     "voxels": 38,
+     "ext": [
+      5,
+      3,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 3,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 23,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.21,
+      0.3336,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 23,
+     "voxels": 35,
+     "ext": [
+      6,
+      3,
+      7
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.288,
+      0.2856,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 24,
+     "voxels": 37,
+     "ext": [
+      6,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 12,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.282,
+      0.2796,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 25,
+     "voxels": 64,
+     "ext": [
+      4,
+      8,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 16,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.444,
+      0.2916,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 26,
+     "voxels": 37,
+     "ext": [
+      5,
+      5,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 9,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 1,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.366,
+      0.2256,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 27,
+     "voxels": 33,
+     "ext": [
+      4,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 7,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.372,
+      0.264,
+      0.0996
+     ]
+    },
+    {
+     "idx": 28,
+     "voxels": 37,
+     "ext": [
+      5,
+      4,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 2,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 11,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.204,
+      0.1296,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 29,
+     "voxels": 34,
+     "ext": [
+      4,
+      3,
+      7
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.456,
+      0.318,
+      0.0996
+     ]
+    },
+    {
+     "idx": 30,
+     "voxels": 37,
+     "ext": [
+      5,
+      4,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 6,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.282,
+      0.2136,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 31,
+     "voxels": 37,
+     "ext": [
+      4,
+      4,
+      4
+     ],
+     "tipped": false,
+     "nearFits": 10,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.348,
+      0.2796,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 32,
+     "voxels": 37,
+     "ext": [
+      5,
+      5,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 3,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.282,
+      0.186,
+      0.0996
+     ]
+    },
+    {
+     "idx": 33,
+     "voxels": 35,
+     "ext": [
+      5,
+      4,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 3,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 13,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.348,
+      0.2136,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 34,
+     "voxels": 37,
+     "ext": [
+      6,
+      4,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 6,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.408,
+      0.1296,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 35,
+     "voxels": 63,
+     "ext": [
+      8,
+      7,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.228,
+      0.102,
+      0.0996
+     ]
+    },
+    {
+     "idx": 36,
+     "voxels": 37,
+     "ext": [
+      4,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 14,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.366,
+      0.2916,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 37,
+     "voxels": 57,
+     "ext": [
+      6,
+      5,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 1,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.432,
+      0.09,
+      0.0996
+     ]
+    },
+    {
+     "idx": 38,
+     "voxels": 55,
+     "ext": [
+      7,
+      7,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 19,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.438,
+      0.1416,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 39,
+     "voxels": 67,
+     "ext": [
+      5,
+      8,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.444,
+      0.108,
+      0.0996
+     ]
+    },
+    {
+     "idx": 40,
+     "voxels": 34,
+     "ext": [
+      4,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 18,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.336,
+      0.252,
+      0.0996
+     ]
+    },
+    {
+     "idx": 41,
+     "voxels": 35,
+     "ext": [
+      5,
+      5,
+      4
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.348,
+      0.186,
+      0.0996
+     ]
+    },
+    {
+     "idx": 42,
+     "voxels": 36,
+     "ext": [
+      6,
+      5,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 3,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.444,
+      0.2256,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 43,
+     "voxels": 64,
+     "ext": [
+      8,
+      4,
+      7
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.426,
+      0.2076,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 44,
+     "voxels": 37,
+     "ext": [
+      4,
+      5,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 12,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.306,
+      0.198,
+      0.0996
+     ]
+    },
+    {
+     "idx": 45,
+     "voxels": 34,
+     "ext": [
+      5,
+      4,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 14,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.204,
+      0.2196,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 46,
+     "voxels": 32,
+     "ext": [
+      8,
+      3,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.24,
+      0.258,
+      0.0996
+     ]
+    },
+    {
+     "idx": 47,
+     "voxels": 58,
+     "ext": [
+      8,
+      4,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.444,
+      0.264,
+      0.0996
+     ]
+    },
+    {
+     "idx": 48,
+     "voxels": 36,
+     "ext": [
+      4,
+      6,
+      4
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.36,
+      0.1356,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 49,
+     "voxels": 37,
+     "ext": [
+      4,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 3,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 19,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.312,
+      0.264,
+      0.0996
+     ]
+    }
+   ]
+  },
+  "bigben-25": {
+   "ok": true,
+   "seed": 108,
+   "stats": {
+    "pieces": 25,
+    "voxels": 1796,
+    "minSize": 51,
+    "maxSize": 103,
+    "mean": 71.84,
+    "withinBand": 24,
+    "tipped": 17,
+    "wrongAtStart": 25,
+    "nearAmbig": 9,
+    "exactAmbig": 0,
+    "slabs": 0,
+    "maxEdge": 10,
+    "cap": 10,
+    "packFail": 0
+   },
+   "segCount": [
+    15,
+    6,
+    4
+   ],
+   "tippedPct": 68,
+   "nearAmbigPct": 36,
+   "equivPieces": 0,
+   "pieces": [
+    {
+     "idx": 0,
+     "voxels": 71,
+     "ext": [
+      5,
+      7,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.45,
+      0.1416,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 1,
+     "voxels": 64,
+     "ext": [
+      4,
+      8,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 16,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.384,
+      0.18,
+      0.0996
+     ]
+    },
+    {
+     "idx": 2,
+     "voxels": 71,
+     "ext": [
+      4,
+      7,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 19,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.348,
+      0.2196,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 3,
+     "voxels": 67,
+     "ext": [
+      4,
+      7,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 6,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.42,
+      0.2196,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 4,
+     "voxels": 68,
+     "ext": [
+      5,
+      8,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 10,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.228,
+      0.186,
+      0.0996
+     ]
+    },
+    {
+     "idx": 5,
+     "voxels": 71,
+     "ext": [
+      5,
+      6,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.258,
+      0.1356,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 6,
+     "voxels": 68,
+     "ext": [
+      5,
+      6,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.414,
+      0.096,
+      0.0996
+     ]
+    },
+    {
+     "idx": 7,
+     "voxels": 52,
+     "ext": [
+      5,
+      8,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 12,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.3,
+      0.1356,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 8,
+     "voxels": 71,
+     "ext": [
+      5,
+      10,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 10,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.24,
+      0.2256,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 9,
+     "voxels": 71,
+     "ext": [
+      5,
+      6,
+      4
+     ],
+     "tipped": false,
+     "nearFits": 3,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.252,
+      0.096,
+      0.0996
+     ]
+    },
+    {
+     "idx": 10,
+     "voxels": 62,
+     "ext": [
+      4,
+      6,
+      4
+     ],
+     "tipped": false,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.456,
+      0.2316,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 11,
+     "voxels": 62,
+     "ext": [
+      4,
+      7,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 18,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.252,
+      0.18,
+      0.0996
+     ]
+    },
+    {
+     "idx": 12,
+     "voxels": 52,
+     "ext": [
+      5,
+      6,
+      3
+     ],
+     "tipped": true,
+     "nearFits": 5,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 12,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.444,
+      0.2976,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 13,
+     "voxels": 71,
+     "ext": [
+      5,
+      7,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.21,
+      0.1416,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 14,
+     "voxels": 70,
+     "ext": [
+      6,
+      5,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 19,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.324,
+      0.096,
+      0.0996
+     ]
+    },
+    {
+     "idx": 15,
+     "voxels": 51,
+     "ext": [
+      4,
+      6,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 12,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.288,
+      0.2196,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 16,
+     "voxels": 92,
+     "ext": [
+      7,
+      9,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 12,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.354,
+      0.1356,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 17,
+     "voxels": 70,
+     "ext": [
+      5,
+      5,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 18,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.324,
+      0.186,
+      0.0996
+     ]
+    },
+    {
+     "idx": 18,
+     "voxels": 70,
+     "ext": [
+      5,
+      5,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 23,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.318,
+      0.186,
+      0.0996
+     ]
+    },
+    {
+     "idx": 19,
+     "voxels": 100,
+     "ext": [
+      9,
+      8,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 4,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.426,
+      0.186,
+      0.0996
+     ]
+    },
+    {
+     "idx": 20,
+     "voxels": 84,
+     "ext": [
+      5,
+      7,
+      9
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 9,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.378,
+      0.2256,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 21,
+     "voxels": 68,
+     "ext": [
+      7,
+      10,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 5,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.33,
+      0.096,
+      0.0996
+     ]
+    },
+    {
+     "idx": 22,
+     "voxels": 98,
+     "ext": [
+      8,
+      7,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.228,
+      0.102,
+      0.0996
+     ]
+    },
+    {
+     "idx": 23,
+     "voxels": 103,
+     "ext": [
+      9,
+      8,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 5,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.426,
+      0.102,
+      0.0996
+     ]
+    },
+    {
+     "idx": 24,
+     "voxels": 69,
+     "ext": [
+      6,
+      8,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 16,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.396,
+      0.1356,
+      -0.0804
+     ]
+    }
+   ]
+  },
+  "bigben-50": {
+   "ok": true,
+   "seed": 7,
+   "stats": {
+    "pieces": 50,
+    "voxels": 1796,
+    "minSize": 29,
+    "maxSize": 59,
+    "mean": 35.92,
+    "withinBand": 41,
+    "tipped": 33,
+    "wrongAtStart": 50,
+    "nearAmbig": 29,
+    "exactAmbig": 0,
+    "slabs": 0,
+    "maxEdge": 8,
+    "cap": 8,
+    "packFail": 0
+   },
+   "segCount": [
+    29,
+    12,
+    9
+   ],
+   "tippedPct": 66,
+   "nearAmbigPct": 58,
+   "equivPieces": 0,
+   "pieces": [
+    {
+     "idx": 0,
+     "voxels": 30,
+     "ext": [
+      5,
+      6,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 4,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.45,
+      0.192,
+      0.0996
+     ]
+    },
+    {
+     "idx": 1,
+     "voxels": 33,
+     "ext": [
+      5,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 18,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.216,
+      0.1296,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 2,
+     "voxels": 29,
+     "ext": [
+      3,
+      4,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 6,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 12,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.348,
+      0.2076,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 3,
+     "voxels": 33,
+     "ext": [
+      5,
+      5,
+      3
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 6,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.21,
+      0.258,
+      0.0996
+     ]
+    },
+    {
+     "idx": 4,
+     "voxels": 34,
+     "ext": [
+      4,
+      4,
+      3
+     ],
+     "tipped": false,
+     "nearFits": 3,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.462,
+      0.1236,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 5,
+     "voxels": 57,
+     "ext": [
+      5,
+      8,
+      7
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.438,
+      0.108,
+      0.0996
+     ]
+    },
+    {
+     "idx": 6,
+     "voxels": 30,
+     "ext": [
+      3,
+      4,
+      3
+     ],
+     "tipped": false,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.258,
+      0.192,
+      0.0996
+     ]
+    },
+    {
+     "idx": 7,
+     "voxels": 30,
+     "ext": [
+      4,
+      4,
+      3
+     ],
+     "tipped": true,
+     "nearFits": 3,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 17,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.462,
+      0.084,
+      0.0996
+     ]
+    },
+    {
+     "idx": 8,
+     "voxels": 29,
+     "ext": [
+      5,
+      2,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 2,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.408,
+      0.2676,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 9,
+     "voxels": 33,
+     "ext": [
+      4,
+      4,
+      3
+     ],
+     "tipped": true,
+     "nearFits": 5,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 10,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.336,
+      0.192,
+      0.0996
+     ]
+    },
+    {
+     "idx": 10,
+     "voxels": 32,
+     "ext": [
+      4,
+      3,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 4,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.21,
+      0.2736,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 11,
+     "voxels": 30,
+     "ext": [
+      5,
+      5,
+      3
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 4,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.366,
+      0.246,
+      0.0996
+     ]
+    },
+    {
+     "idx": 12,
+     "voxels": 55,
+     "ext": [
+      5,
+      8,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.216,
+      0.108,
+      0.0996
+     ]
+    },
+    {
+     "idx": 13,
+     "voxels": 57,
+     "ext": [
+      5,
+      8,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.444,
+      0.1476,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 14,
+     "voxels": 32,
+     "ext": [
+      3,
+      5,
+      3
+     ],
+     "tipped": true,
+     "nearFits": 4,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 13,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.282,
+      0.258,
+      0.0996
+     ]
+    },
+    {
+     "idx": 15,
+     "voxels": 29,
+     "ext": [
+      4,
+      6,
+      3
+     ],
+     "tipped": true,
+     "nearFits": 2,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 12,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.444,
+      0.246,
+      0.0996
+     ]
+    },
+    {
+     "idx": 16,
+     "voxels": 30,
+     "ext": [
+      5,
+      4,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 7,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.27,
+      0.192,
+      0.0996
+     ]
+    },
+    {
+     "idx": 17,
+     "voxels": 31,
+     "ext": [
+      3,
+      4,
+      4
+     ],
+     "tipped": false,
+     "nearFits": 2,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.462,
+      0.2076,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 18,
+     "voxels": 30,
+     "ext": [
+      3,
+      6,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 11,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.444,
+      0.2976,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 19,
+     "voxels": 32,
+     "ext": [
+      5,
+      3,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 2,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.348,
+      0.2736,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 20,
+     "voxels": 29,
+     "ext": [
+      5,
+      4,
+      3
+     ],
+     "tipped": true,
+     "nearFits": 2,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 5,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.366,
+      0.2976,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 21,
+     "voxels": 33,
+     "ext": [
+      4,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 8,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 7,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.324,
+      0.2316,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 22,
+     "voxels": 31,
+     "ext": [
+      3,
+      4,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 4,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 17,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.204,
+      0.186,
+      0.0996
+     ]
+    },
+    {
+     "idx": 23,
+     "voxels": 53,
+     "ext": [
+      4,
+      3,
+      8
+     ],
+     "tipped": false,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.456,
+      0.186,
+      0.0996
+     ]
+    },
+    {
+     "idx": 24,
+     "voxels": 48,
+     "ext": [
+      8,
+      3,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.282,
+      0.2736,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 25,
+     "voxels": 57,
+     "ext": [
+      7,
+      5,
+      8
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.312,
+      0.09,
+      0.0996
+     ]
+    },
+    {
+     "idx": 26,
+     "voxels": 31,
+     "ext": [
+      5,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 4,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 1,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.33,
+      0.1296,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 27,
+     "voxels": 32,
+     "ext": [
+      4,
+      5,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 3,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 7,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.204,
+      0.2136,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 28,
+     "voxels": 33,
+     "ext": [
+      5,
+      4,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 3,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 11,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.216,
+      0.09,
+      0.0996
+     ]
+    },
+    {
+     "idx": 29,
+     "voxels": 32,
+     "ext": [
+      5,
+      5,
+      3
+     ],
+     "tipped": false,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.354,
+      0.09,
+      0.0996
+     ]
+    },
+    {
+     "idx": 30,
+     "voxels": 31,
+     "ext": [
+      4,
+      4,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 5,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 6,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.408,
+      0.2076,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 31,
+     "voxels": 30,
+     "ext": [
+      5,
+      5,
+      4
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.282,
+      0.1296,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 32,
+     "voxels": 30,
+     "ext": [
+      4,
+      4,
+      4
+     ],
+     "tipped": false,
+     "nearFits": 5,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.312,
+      0.192,
+      0.0996
+     ]
+    },
+    {
+     "idx": 33,
+     "voxels": 59,
+     "ext": [
+      5,
+      6,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 13,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.36,
+      0.1296,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 34,
+     "voxels": 30,
+     "ext": [
+      4,
+      5,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 13,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.402,
+      0.1296,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 35,
+     "voxels": 32,
+     "ext": [
+      4,
+      4,
+      3
+     ],
+     "tipped": false,
+     "nearFits": 3,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.396,
+      0.192,
+      0.0996
+     ]
+    },
+    {
+     "idx": 36,
+     "voxels": 32,
+     "ext": [
+      4,
+      4,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 2,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 14,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.204,
+      0.198,
+      0.0996
+     ]
+    },
+    {
+     "idx": 37,
+     "voxels": 30,
+     "ext": [
+      4,
+      4,
+      3
+     ],
+     "tipped": true,
+     "nearFits": 5,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 3,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.264,
+      0.2316,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 38,
+     "voxels": 31,
+     "ext": [
+      5,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 19,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.456,
+      0.2376,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 39,
+     "voxels": 31,
+     "ext": [
+      6,
+      3,
+      4
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.204,
+      0.2256,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 40,
+     "voxels": 55,
+     "ext": [
+      4,
+      7,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 18,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.39,
+      0.2316,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 41,
+     "voxels": 31,
+     "ext": [
+      3,
+      5,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.282,
+      0.09,
+      0.0996
+     ]
+    },
+    {
+     "idx": 42,
+     "voxels": 31,
+     "ext": [
+      3,
+      5,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 3,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 8,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.294,
+      0.246,
+      0.0996
+     ]
+    },
+    {
+     "idx": 43,
+     "voxels": 31,
+     "ext": [
+      4,
+      6,
+      3
+     ],
+     "tipped": false,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.27,
+      0.1356,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 44,
+     "voxels": 32,
+     "ext": [
+      4,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 2,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 12,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.378,
+      0.192,
+      0.0996
+     ]
+    },
+    {
+     "idx": 45,
+     "voxels": 31,
+     "ext": [
+      5,
+      3,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 5,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.354,
+      0.258,
+      0.0996
+     ]
+    },
+    {
+     "idx": 46,
+     "voxels": 33,
+     "ext": [
+      4,
+      6,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 15,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.276,
+      0.2076,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 47,
+     "voxels": 53,
+     "ext": [
+      6,
+      6,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.21,
+      0.1356,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 48,
+     "voxels": 29,
+     "ext": [
+      5,
+      3,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.294,
+      0.2976,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 49,
+     "voxels": 59,
+     "ext": [
+      8,
+      5,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.402,
+      0.09,
+      0.0996
+     ]
+    }
+   ]
+  },
+  "taj-25": {
+   "ok": true,
+   "seed": 7,
+   "stats": {
+    "pieces": 25,
+    "voxels": 2856,
+    "minSize": 18,
+    "maxSize": 242,
+    "mean": 114.24,
+    "withinBand": 17,
+    "tipped": 17,
+    "wrongAtStart": 25,
+    "nearAmbig": 11,
+    "exactAmbig": 1,
+    "slabs": 0,
+    "maxEdge": 10,
+    "cap": 10,
+    "packFail": 0
+   },
+   "segCount": [
+    15,
+    8,
+    2
+   ],
+   "tippedPct": 68,
+   "nearAmbigPct": 44,
+   "equivPieces": 0,
+   "pieces": [
+    {
+     "idx": 0,
+     "voxels": 24,
+     "ext": [
+      2,
+      6,
+      2
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0,
+      2,
+      20,
+      22
+     ],
+     "scatterRot": 4,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.432,
+      0.1116,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 1,
+     "voxels": 18,
+     "ext": [
+      2,
+      5,
+      2
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 17,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.444,
+      0.072,
+      0.0996
+     ]
+    },
+    {
+     "idx": 2,
+     "voxels": 112,
+     "ext": [
+      7,
+      7,
+      8
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 12,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.306,
+      0.108,
+      0.0996
+     ]
+    },
+    {
+     "idx": 3,
+     "voxels": 29,
+     "ext": [
+      2,
+      8,
+      2
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 8,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.432,
+      0.3276,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 4,
+     "voxels": 229,
+     "ext": [
+      10,
+      9,
+      10
+     ],
+     "tipped": false,
+     "nearFits": 3,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.24,
+      0.1536,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 5,
+     "voxels": 123,
+     "ext": [
+      10,
+      9,
+      10
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.336,
+      0.1536,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 6,
+     "voxels": 123,
+     "ext": [
+      7,
+      7,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.216,
+      0.102,
+      0.0996
+     ]
+    },
+    {
+     "idx": 7,
+     "voxels": 25,
+     "ext": [
+      2,
+      7,
+      2
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 16,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.468,
+      0.1116,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 8,
+     "voxels": 123,
+     "ext": [
+      6,
+      7,
+      8
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 17,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.432,
+      0.228,
+      0.0996
+     ]
+    },
+    {
+     "idx": 9,
+     "voxels": 122,
+     "ext": [
+      7,
+      6,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 10,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.216,
+      0.234,
+      0.0996
+     ]
+    },
+    {
+     "idx": 10,
+     "voxels": 120,
+     "ext": [
+      8,
+      6,
+      8
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.324,
+      0.2556,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 11,
+     "voxels": 122,
+     "ext": [
+      6,
+      6,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 6,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 1,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.336,
+      0.228,
+      0.0996
+     ]
+    },
+    {
+     "idx": 12,
+     "voxels": 99,
+     "ext": [
+      10,
+      10,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.444,
+      0.1596,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 13,
+     "voxels": 124,
+     "ext": [
+      5,
+      8,
+      7
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.222,
+      0.1476,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 14,
+     "voxels": 123,
+     "ext": [
+      5,
+      8,
+      9
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 16,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.33,
+      0.2616,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 15,
+     "voxels": 122,
+     "ext": [
+      6,
+      6,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 6,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 16,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.438,
+      0.2676,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 16,
+     "voxels": 31,
+     "ext": [
+      2,
+      9,
+      2
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 8,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.234,
+      0.204,
+      0.0996
+     ]
+    },
+    {
+     "idx": 17,
+     "voxels": 103,
+     "ext": [
+      10,
+      4,
+      9
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.42,
+      0.216,
+      0.0996
+     ]
+    },
+    {
+     "idx": 18,
+     "voxels": 216,
+     "ext": [
+      9,
+      5,
+      9
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 3,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.234,
+      0.3456,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 19,
+     "voxels": 121,
+     "ext": [
+      6,
+      7,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 2,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 17,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.306,
+      0.228,
+      0.0996
+     ]
+    },
+    {
+     "idx": 20,
+     "voxels": 242,
+     "ext": [
+      9,
+      10,
+      8
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 8,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.36,
+      0.114,
+      0.0996
+     ]
+    },
+    {
+     "idx": 21,
+     "voxels": 140,
+     "ext": [
+      9,
+      9,
+      10
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 7,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.234,
+      0.12,
+      0.0996
+     ]
+    },
+    {
+     "idx": 22,
+     "voxels": 121,
+     "ext": [
+      10,
+      10,
+      10
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 17,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.42,
+      0.12,
+      0.0996
+     ]
+    },
+    {
+     "idx": 23,
+     "voxels": 122,
+     "ext": [
+      8,
+      8,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.36,
+      0.1476,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 24,
+     "voxels": 122,
+     "ext": [
+      10,
+      7,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 13,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.222,
+      0.2616,
+      -0.0804
+     ]
+    }
+   ]
+  },
+  "taj-50": {
+   "ok": true,
+   "seed": 7,
+   "stats": {
+    "pieces": 50,
+    "voxels": 2856,
+    "minSize": 17,
+    "maxSize": 113,
+    "mean": 57.12,
+    "withinBand": 37,
+    "tipped": 34,
+    "wrongAtStart": 50,
+    "nearAmbig": 20,
+    "exactAmbig": 1,
+    "slabs": 0,
+    "maxEdge": 8,
+    "cap": 8,
+    "packFail": 0
+   },
+   "segCount": [
+    27,
+    16,
+    7
+   ],
+   "tippedPct": 68,
+   "nearAmbigPct": 40,
+   "equivPieces": 0,
+   "pieces": [
+    {
+     "idx": 0,
+     "voxels": 23,
+     "ext": [
+      2,
+      6,
+      2
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 4,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.468,
+      0.2076,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 1,
+     "voxels": 63,
+     "ext": [
+      8,
+      8,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 14,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.336,
+      0.096,
+      0.0996
+     ]
+    },
+    {
+     "idx": 2,
+     "voxels": 17,
+     "ext": [
+      2,
+      5,
+      2
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 12,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.438,
+      0.2916,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 3,
+     "voxels": 23,
+     "ext": [
+      2,
+      6,
+      2
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 8,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.324,
+      0.336,
+      0.0996
+     ]
+    },
+    {
+     "idx": 4,
+     "voxels": 32,
+     "ext": [
+      2,
+      8,
+      2
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0,
+      2,
+      20,
+      22
+     ],
+     "scatterRot": 14,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.324,
+      0.3636,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 5,
+     "voxels": 43,
+     "ext": [
+      4,
+      8,
+      7
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.438,
+      0.108,
+      0.0996
+     ]
+    },
+    {
+     "idx": 6,
+     "voxels": 56,
+     "ext": [
+      5,
+      3,
+      8
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.276,
+      0.3096,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 7,
+     "voxels": 60,
+     "ext": [
+      5,
+      5,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 23,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 17,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.282,
+      0.198,
+      0.0996
+     ]
+    },
+    {
+     "idx": 8,
+     "voxels": 113,
+     "ext": [
+      8,
+      5,
+      8
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.372,
+      0.198,
+      0.0996
+     ]
+    },
+    {
+     "idx": 9,
+     "voxels": 58,
+     "ext": [
+      5,
+      5,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 10,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.39,
+      0.198,
+      0.0996
+     ]
+    },
+    {
+     "idx": 10,
+     "voxels": 55,
+     "ext": [
+      8,
+      7,
+      8
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.228,
+      0.1416,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 11,
+     "voxels": 62,
+     "ext": [
+      5,
+      4,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 3,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 1,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.378,
+      0.276,
+      0.0996
+     ]
+    },
+    {
+     "idx": 12,
+     "voxels": 54,
+     "ext": [
+      8,
+      3,
+      8
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.288,
+      0.27,
+      0.0996
+     ]
+    },
+    {
+     "idx": 13,
+     "voxels": 57,
+     "ext": [
+      6,
+      6,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.42,
+      0.096,
+      0.0996
+     ]
+    },
+    {
+     "idx": 14,
+     "voxels": 58,
+     "ext": [
+      4,
+      4,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 4,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 17,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.288,
+      0.3036,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 15,
+     "voxels": 61,
+     "ext": [
+      6,
+      5,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 8,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 16,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.426,
+      0.1356,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 16,
+     "voxels": 17,
+     "ext": [
+      2,
+      5,
+      2
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 8,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.354,
+      0.3756,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 17,
+     "voxels": 53,
+     "ext": [
+      8,
+      3,
+      8
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.228,
+      0.342,
+      0.0996
+     ]
+    },
+    {
+     "idx": 18,
+     "voxels": 60,
+     "ext": [
+      7,
+      6,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 5,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.366,
+      0.2376,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 19,
+     "voxels": 58,
+     "ext": [
+      6,
+      5,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 1,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.33,
+      0.2256,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 20,
+     "voxels": 55,
+     "ext": [
+      6,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 5,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.372,
+      0.3156,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 21,
+     "voxels": 84,
+     "ext": [
+      7,
+      8,
+      8
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 7,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.222,
+      0.108,
+      0.0996
+     ]
+    },
+    {
+     "idx": 22,
+     "voxels": 36,
+     "ext": [
+      4,
+      3,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.444,
+      0.342,
+      0.0996
+     ]
+    },
+    {
+     "idx": 23,
+     "voxels": 19,
+     "ext": [
+      2,
+      6,
+      2
+     ],
+     "tipped": false,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.264,
+      0.2316,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 24,
+     "voxels": 59,
+     "ext": [
+      6,
+      5,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 14,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.414,
+      0.2256,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 25,
+     "voxels": 56,
+     "ext": [
+      5,
+      3,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 6,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.432,
+      0.27,
+      0.0996
+     ]
+    },
+    {
+     "idx": 26,
+     "voxels": 51,
+     "ext": [
+      6,
+      8,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 4,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.276,
+      0.2376,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 27,
+     "voxels": 95,
+     "ext": [
+      8,
+      7,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 4,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.324,
+      0.096,
+      0.0996
+     ]
+    },
+    {
+     "idx": 28,
+     "voxels": 29,
+     "ext": [
+      2,
+      8,
+      2
+     ],
+     "tipped": true,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 11,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.348,
+      0.336,
+      0.0996
+     ]
+    },
+    {
+     "idx": 29,
+     "voxels": 58,
+     "ext": [
+      5,
+      5,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 21,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.21,
+      0.198,
+      0.0996
+     ]
+    },
+    {
+     "idx": 30,
+     "voxels": 60,
+     "ext": [
+      5,
+      5,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 15,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 6,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.21,
+      0.2316,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 31,
+     "voxels": 59,
+     "ext": [
+      7,
+      3,
+      8
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.222,
+      0.3696,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 32,
+     "voxels": 59,
+     "ext": [
+      6,
+      5,
+      4
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.204,
+      0.2376,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 33,
+     "voxels": 101,
+     "ext": [
+      8,
+      8,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 12,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.336,
+      0.1356,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 34,
+     "voxels": 55,
+     "ext": [
+      5,
+      8,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 13,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.3,
+      0.198,
+      0.0996
+     ]
+    },
+    {
+     "idx": 35,
+     "voxels": 61,
+     "ext": [
+      5,
+      5,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 23,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.21,
+      0.282,
+      0.0996
+     ]
+    },
+    {
+     "idx": 36,
+     "voxels": 43,
+     "ext": [
+      7,
+      6,
+      6
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 14,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.24,
+      0.1356,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 37,
+     "voxels": 57,
+     "ext": [
+      5,
+      5,
+      8
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 3,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.45,
+      0.3216,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 38,
+     "voxels": 57,
+     "ext": [
+      4,
+      7,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 18,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.354,
+      0.276,
+      0.0996
+     ]
+    },
+    {
+     "idx": 39,
+     "voxels": 57,
+     "ext": [
+      8,
+      6,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.21,
+      0.204,
+      0.0996
+     ]
+    },
+    {
+     "idx": 40,
+     "voxels": 94,
+     "ext": [
+      8,
+      6,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      -0.234,
+      0.096,
+      0.0996
+     ]
+    },
+    {
+     "idx": 41,
+     "voxels": 60,
+     "ext": [
+      5,
+      6,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 7,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.45,
+      0.2436,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 42,
+     "voxels": 55,
+     "ext": [
+      5,
+      5,
+      4
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 3,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      0.21,
+      0.3096,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 43,
+     "voxels": 59,
+     "ext": [
+      5,
+      5,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 3,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 22,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.45,
+      0.282,
+      0.0996
+     ]
+    },
+    {
+     "idx": 44,
+     "voxels": 110,
+     "ext": [
+      8,
+      7,
+      8
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 12,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.438,
+      0.1476,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 45,
+     "voxels": 48,
+     "ext": [
+      8,
+      3,
+      7
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      -0.438,
+      0.3816,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 46,
+     "voxels": 60,
+     "ext": [
+      8,
+      5,
+      5
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 14,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.282,
+      0.282,
+      0.0996
+     ]
+    },
+    {
+     "idx": 47,
+     "voxels": 60,
+     "ext": [
+      6,
+      4,
+      5
+     ],
+     "tipped": false,
+     "nearFits": 2,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 20,
+     "seg": 0,
+     "equiv": [],
+     "wing": [
+      0.366,
+      0.3036,
+      -0.0804
+     ]
+    },
+    {
+     "idx": 48,
+     "voxels": 58,
+     "ext": [
+      4,
+      6,
+      6
+     ],
+     "tipped": false,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 2,
+     "seg": 1,
+     "equiv": [],
+     "wing": [
+      -0.456,
+      0.204,
+      0.0996
+     ]
+    },
+    {
+     "idx": 49,
+     "voxels": 78,
+     "ext": [
+      6,
+      6,
+      8
+     ],
+     "tipped": true,
+     "nearFits": 0,
+     "allowed": [
+      0
+     ],
+     "scatterRot": 21,
+     "seg": 2,
+     "equiv": [],
+     "wing": [
+      0.336,
+      0.1356,
+      -0.0804
+     ]
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,38 @@
+{
+ "order": ["qinian", "bigben", "taj"],
+ "landmarks": {
+  "qinian": {
+   "zh": { "name": "天坛祈年殿", "short": "祈年殿", "place": "中国 · 北京", "built": "1420 年（1889 年焚毁后重建）", "height": "38 米", "scale": "默认大小约 1:140",
+    "story": "明清皇帝每年正月来这里祈求五谷丰登。圆形的殿和方形的院墙，合起来是「天圆地方」。",
+    "segs": ["台基", "柱身与檐下", "三层屋顶"],
+    "facts": ["祈年殿坐落在三层汉白玉圆台「祈谷坛」上。", "殿内 28 根柱子，对应四季、十二月、十二时辰和二十八星宿。", "三层蓝色琉璃瓦屋顶象征天，顶上是镀金宝顶。"] },
+   "en": { "name": "Hall of Prayer for Good Harvests", "short": "Hall of Prayer", "place": "Beijing, China", "built": "1420 (rebuilt after an 1889 fire)", "height": "38 m", "scale": "About 1:140 at default size",
+    "story": "Ming and Qing emperors came here each spring to pray for a good harvest. Round hall, square walls: heaven round, earth square.",
+    "segs": ["Terrace", "Columns and eaves", "Three roofs"],
+    "facts": ["The hall stands on a three-tier white marble terrace, the Altar of Prayer for Grain.", "28 columns inside stand for the seasons, months, hours and lunar mansions.", "The three blue-glazed roofs stand for heaven, topped by a gilded finial."] },
+   "sources": ["https://en.wikipedia.org/wiki/Temple_of_Heaven", "https://zh.wikipedia.org/wiki/祈年殿"]
+  },
+  "bigben": {
+   "zh": { "name": "伊丽莎白塔（大本钟）", "short": "大本钟", "place": "英国 · 伦敦", "built": "1859 年", "height": "96 米", "scale": "默认大小约 1:290",
+    "story": "它是威斯敏斯特宫的钟楼，钟声从 1859 年响到今天，是伦敦最有名的声音。",
+    "segs": ["台基与塔身", "钟面", "钟楼与尖顶"],
+    "facts": ["塔身略向西北倾斜，约 0.26°。", "四面钟盘每面直径约 7 米。", "「大本钟」其实是塔里那口 13.7 吨的大钟的名字。"] },
+   "en": { "name": "Elizabeth Tower (Big Ben)", "short": "Big Ben", "place": "London, UK", "built": "1859", "height": "96 m", "scale": "About 1:290 at default size",
+    "story": "The clock tower of the Palace of Westminster. Its chimes have rung since 1859 and are London's best-known sound.",
+    "segs": ["Base and shaft", "Clock faces", "Belfry and spire"],
+    "facts": ["The tower leans slightly to the north-west, about 0.26°.", "Each of the four dials is about 7 m across.", "Big Ben is really the name of the 13.7-tonne bell inside."] },
+   "sources": ["https://en.wikipedia.org/wiki/Big_Ben"]
+  },
+  "taj": {
+   "zh": { "name": "泰姬陵", "short": "泰姬陵", "place": "印度 · 阿格拉", "built": "1632–1653 年", "height": "约 73 米（主穹顶）", "scale": "默认大小约 1:260",
+    "story": "两万多名工匠用了二十多年，把整座建筑做成几乎完美的对称。",
+    "segs": ["台基与宣礼塔", "主殿", "穹顶"],
+    "facts": ["四座宣礼塔略微向外倾斜，万一倒塌也不会砸到主殿。", "它是莫卧儿皇帝沙贾汗为纪念亡妻修建的陵墓。", "白色大理石穹顶在清晨、正午、月光下颜色不同。"] },
+   "en": { "name": "Taj Mahal", "short": "Taj Mahal", "place": "Agra, India", "built": "1632–1653", "height": "About 73 m (main dome)", "scale": "About 1:260 at default size",
+    "story": "More than 20,000 craftsmen spent over twenty years making it almost perfectly symmetrical.",
+    "segs": ["Plinth and minarets", "Main hall", "Dome"],
+    "facts": ["The four minarets lean slightly outward so they would fall away from the tomb.", "Mughal emperor Shah Jahan built it in memory of his wife.", "The marble dome changes colour from dawn to noon to moonlight."] },
+   "sources": ["https://en.wikipedia.org/wiki/Taj_Mahal"]
+  }
+ }
+}

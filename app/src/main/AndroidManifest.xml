@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:name=".platform.JigsawApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.VoxelJigsaw"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".platform.LaunchActivity"
+            android:exported="true"
+            android:theme="@style/Theme.VoxelJigsaw">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- One volumetric DefaultWindowContainer (design container: IN_VOLUME, single_panel_in_volume) -->
+            <meta-data android:name="pico.spatial.windowcontainer.id" android:value="VoxelJigsawVolume" />
+            <!-- 2 = Form.Volumetric -->
+            <meta-data android:name="pico.spatial.windowcontainer.style" android:value="2" />
+            <!-- width x height x depth, metres: the design 1.0 x 0.6 x 0.5 m times JigsawScene.WORLD_SCALE 1.4 (user feedback 2026-10-23) -->
+            <meta-data android:name="pico.spatial.windowcontainer.defaultsize" android:value="1.4x0.84x0.7" />
+            <meta-data android:name="pico.spatial.windowcontainer.defaultsize.unit" android:value="meters" />
+            <!-- 0 = ContainerResizeType.Automatic -->
+            <meta-data android:name="pico.spatial.windowcontainer.resizetype" android:value="0" />
+            <!-- 1 = UniformResizable: the volume only scales uniformly -->
+            <meta-data android:name="pico.spatial.windowcontainer.resizerestriction" android:value="1" />
+            <!-- 2 = WorldScale.Fixed -->
+            <meta-data android:name="pico.spatial.windowcontainer.worldscaletype" android:value="2" />
+            <!-- 0 = caption bar always visible -->
+            <meta-data android:name="pico.spatial.windowcontainer.captionbar" android:value="0" />
+            <!-- 0 = no material background behind the volume -->
+            <meta-data android:name="pico.spatial.windowcontainer.materialbackground" android:value="0" />
+            <!-- 0 = VolumeAlignment.Gravity -->
+            <meta-data android:name="pico.spatial.windowcontainer.volumealignment" android:value="0" />
+            <!-- 0 = base panel visible -->
+            <meta-data android:name="pico.spatial.windowcontainer.volumebasepanel" android:value="0" />
+        </activity>
+
+        <meta-data android:name="icon.3d.list" android:resource="@array/icon_3d_list" />
+        <meta-data android:name="icon.sdf.list" android:resource="@array/icon_sdf_list" />
+    </application>
+
+</manifest>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- gilded gold (the finial gold of the landmarks): the app's own icon colour in the launcher, registered in the factory icon registry -->
+    <color name="ic_launcher_background">#FFC7861A</color>
+</resources>
