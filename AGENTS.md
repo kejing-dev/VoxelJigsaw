@@ -6,8 +6,9 @@ inside the volume (design package `spatial-app-factory/apps/voxel-jigsaw/design-
 
 ## Layout
 
-- `tools/bake/bake_puzzles.js` — offline bake (node). Reuses the design sample's `vj-core.js`: 3 landmarks × 25/50 pieces,
-  seeds from the design package, ambiguity gates. Writes `app/src/main/assets/puzzles/*.json` and `bake/ambiguity-report.json`.
+- `tools/bake/bake_puzzles.js` — offline bake (node). Reuses the design sample's `vj-core.js`: 3 landmarks × 2 levels
+  (level 1: 8 / 8 / 10 pieces, level 2: 16), the wing layout, gates. Writes `app/src/main/assets/puzzles/*.json`,
+  `levels.json` (must equal `Landmarks.LEVELS`, unit-tested) and `bake/ambiguity-report.json`.
 - `domain/` — plain-JVM logic with unit tests: `Rot24` (the 24 axis rotations, turn keys, key paths), `Puzzle` (parse),
   `Rules` (release judgement, parking, hints; easy mode), `Mesher` (greedy voxel mesher), `SaveGame`.
 - `scene/JigsawScene.kt` — all 3D (ECS entities, a 16 ms main-thread frame loop like the reference repo SpatialJanga):
@@ -31,10 +32,11 @@ adb -s emulator-5562 shell am broadcast -a io.embodit.voxeljigsaw.DEBUG -p io.em
 tools/dev.sh cmd <name> '<args>'
 ```
 
-`state <S01..S18>` sets up a design state. Others: `seed <landmark> <25|50> <placed>`, `solveNext`, `solve`,
+`state <S01..S18>` sets up a design state. Others: `seed <landmark> <1|2|n> <placed>` (builds meshes in steps first, logs
+`CMD seed ready`), `solveNext`, `solve`,
 `place <idx|next> <ok|wrongOrient|elsewhere>`, `hold <idx|next>`, `select <idx|next>`, `turn <y|x>`, `yaw <deg>`,
-`hint`, `peek`, `menu`, `home`, `settings`, `display`, `card`, `count <25|50>`, `landmark <id>`, `start`,
-`locale <zh|en|follow>`, `corruptSave`, `boundsCheck`, `stick <x>,<ms>`, `linger <on|off>` (timed effects 15× longer for
+`hint`, `peek` (toggles), `menu`, `home`, `settings`, `display`, `card`, `level <1|2>`, `count <n>`, `landmark <id>`, `start`,
+`nextLevel`, `locale <zh|en|follow>`, `corruptSave`, `boundsCheck`, `stick <x>,<y>,<ms>`, `linger <on|off>` (timed effects 15× longer for
 screenshots), `dump`, `resetAll`. Every command logs `CMD …`; state changes log `STATE Sxx …` (tag `VoxelJigsaw`).
 
 ## Screenshots
@@ -52,7 +54,7 @@ screenshots), `dump`, `resetAll`. Every command logs `CMD …`; state changes lo
   step line "第 n / 25 步 …"; tapping the step line or 提示 bobs and selects that piece (turn keys pop up);
 - a piece released within 4 cm of its place snaps in and turns itself the right way;
 - off in Settings → original design rules (2.5 cm, orientation must match; step line then shows the key presses ↻ ⤵).
-- everything is 1.4× the design size (volume 1.4 × 0.84 × 0.7 m).
+- everything is 1.4× the design size.
 
 ## Panels stay inside the volume (v0.1.3, headset feedback 2026-10-28 "voxel UI 被 crop 了")
 
@@ -65,9 +67,26 @@ that keeps its whole tilted rectangle 1.5 cm inside (log `PANEL fit …`). Panel
 Meshes are built in steps (`JigsawScene.ensureMeshes`): one SDK mesh per main-thread turn. Building a landmark in one go
 blocked input ~10 s on the idle emulator and raised "isn't responding" (v0.1.2, ANR trace 2026-10-28 18:52).
 
+## v0.1.4 (headset feedback 2026-10-28, profile D17–D19)
+
+"peak 要做成 toggle 的，块数少一点 5-10 块一关，10-20 块第二关 / turn tip 分别用 joystick X Y 控制…按一下 joystick 左就转 90 度 /
+pieces 要更分散一点，现在容易遮挡看不清，也选不中":
+- Levels replace 25 / 50: level 1 = 8 pieces (Taj 10: its minarets only join through the plinth), level 2 = 16; both
+  open; the card after level 1 offers 第二关. Keys stay "<landmark>-<n>"; old 25 / 50 saves are simply not shown.
+- Peek (全貌) is a switch: 看全貌 / 收起全貌, the ghost stays until pressed again or the game ends.
+- Thumbstick: `ControllerStick.steps` gives one step per push (fires at 0.6, re-arms under 0.3; a diagonal is one step).
+  X = turn about the vertical (right = ↻), Y = tip (down = ⤵ towards the user, up = away). Held piece: the step goes
+  into `stickTarget` (eased); selected piece: `turnSelectedBy` (queued while turning). Scroll fallback feeds both axes.
+- Wings: the bake lays every piece out face-on in rows, checks each pair's box projected from the design eye
+  (0, 0.45, 1.2) is ≥ 3 cm apart (4.2 cm on the headset; min 4.8 cm in the current sets), and keeps pieces next to the
+  top bar out from under it. The volume grew for it: x ±0.6, top 0.66 (manifest 1.68 × 1.036 × 0.812 m). A piece let go
+  away from the landmark always flies back to its own spot. Loose colliders: at least 3 cm (was 6), so none reaches a
+  neighbour. Turn keys sit at a fixed spot low in front of the turntable, the top bar in the wing plane (z 0.04).
+
 ## Known limits
 
-- Thumbstick: `ControllerTrackingProvider` only reports in Full Space; this is a Shared Space volume. The listener and a
-  horizontal-scroll fallback are wired but unverified on a device; `stick` debug command drives the same code path.
+- Thumbstick: `ControllerTrackingProvider` reports DEVICE_NOT_SUPPORTED on the emulator. v0.1.3 turned pieces continuously
+  on the headset from the listener or the scroll fallback (the log says which: `STICK listener` / `STICK scroll`); the
+  Y axis sign of the scroll path is unverified on a device. The `stick` debug command drives the same code path.
 - `ObjectAudioComponent` not used: SoundPool with four synthesised wavs; mute key on the home panel and top bar.
 - Mesh creation is slow while the emulator idles (~14 s per landmark at 2–4 fps; 0.4 s at 60 fps), but stepped, so input stays live.

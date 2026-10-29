@@ -146,9 +146,9 @@ function normSet(vox, R, withColor) {
 function iou(a, b) { var inter = 0; a.forEach(function (k) { if (b.has(k)) inter++; }); return inter / (a.size + b.size - inter); }
 
 /* ---------- 切块：多切 20% 的小块（带最长边上限）→ 两两合并回 n 块（合并也守上限） ---------- */
-function cut(model, n, seed) {
+function cut(model, n, seed, capOverride) {
   var R = rng(seed), list = model.list, map = model.map;
-  var cap = n <= 25 ? 10 : 8;  // 最长边上限（体素）：25 档 10 × 1.2 = 12 cm，50 档 8 × 1.2 = 9.6 cm
+  var cap = capOverride || (n <= 25 ? 10 : 8);  // 最长边上限（体素）：25 档 10 × 1.2 = 12 cm，50 档 8 × 1.2 = 9.6 cm
   var m = Math.round(n * 1.2);
   var seeds = [list[Math.floor(R() * list.length)]];
   var dist = list.map(function () { return Infinity; });
@@ -325,6 +325,6 @@ function makePuzzle(id, n, seedHint) {
   return best;
 }
 
-var api = { pack: pack, MODELS: MODELS, ROTS: ROTS, rot: rot, mul: mul, rotIndex: rotIndex, buildModel: buildModel, makePuzzle: makePuzzle, rng: rng, key: key };
+var api = { _cut: cut, _analyse: analyse, pack: pack, MODELS: MODELS, ROTS: ROTS, rot: rot, mul: mul, rotIndex: rotIndex, buildModel: buildModel, makePuzzle: makePuzzle, rng: rng, key: key };
 if (typeof module !== "undefined" && module.exports) module.exports = api; else root.VJCore = api;
 })(this);

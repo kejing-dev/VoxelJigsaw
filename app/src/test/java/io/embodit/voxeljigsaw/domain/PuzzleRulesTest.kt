@@ -15,7 +15,43 @@ class PuzzleRulesTest {
 
     private fun puzzle(key: String) = Puzzle.parse(File(assets, "$key.json").readText())
 
-    private val keys = Landmarks.IDS.flatMap { id -> Landmarks.COUNTS.map { "$id-$it" } }
+    private val keys = Landmarks.IDS.flatMap { id -> Landmarks.counts(id).map { "$id-$it" } }
+
+    @Test
+    fun levelsMatchTheBake() {
+        val baked = org.json.JSONObject(File(assets, "levels.json").readText())
+        for (id in Landmarks.IDS) {
+            val a = baked.getJSONArray(id)
+            assertEquals(id, Landmarks.counts(id), List(a.length()) { a.getInt(it) })
+            assertTrue(id, Landmarks.count(id, 0) in 5..10 && Landmarks.count(id, 1) in 10..20)
+        }
+    }
+
+    /** Profile D17: wing spots never overlap, at least 3 cm apart (4.2 cm on the headset) in x or y, clear of the landmark. */
+    @Test
+    fun wingSpotsAreSpreadOut() {
+        for (key in keys) {
+            val p = puzzle(key)
+            val boxes = p.pieces.map { piece -> piece.wing to Rot24.extent(piece.scatterRot, piece.extent) * (p.voxelM / 2f) }
+            for (i in boxes.indices) for (j in i + 1 until boxes.size) {
+                val (a, ha) = boxes[i]
+                val (b, hb) = boxes[j]
+                val gap = maxOf(abs(a.x - b.x) - ha.x - hb.x, abs(a.y - b.y) - ha.y - hb.y)
+                assertTrue("$key $i-$j gap $gap", gap >= 0.03f - 1e-4f)
+            }
+            for ((c, h) in boxes) {
+                assertTrue("$key inner edge ${abs(c.x) - h.x}", abs(c.x) - h.x >= 0.2f)
+                assertTrue("$key outside", abs(c.x) + h.x <= 0.6f && c.y - h.y >= 0f && c.y + h.y <= 0.66f)
+            }
+        }
+    }
+
+    @Test
+    fun stickStepsUndoEachOther() {
+        assertEquals(Rot24.IDENTITY, Rot24.compose(Rot24.TURN_Y_BACK, Rot24.TURN_Y))
+        assertEquals(Rot24.IDENTITY, Rot24.compose(Rot24.TIP_BACK, Rot24.TIP_X))
+        assertEquals(Rot24.IDENTITY, (0 until 4).fold(Rot24.IDENTITY) { r, _ -> Rot24.compose(Rot24.TIP_BACK, r) })
+    }
 
     @Test
     fun rotationTableMatchesTheBake() {
@@ -52,7 +88,7 @@ class PuzzleRulesTest {
 
     @Test
     fun judgementIsTheSameAtAllFourTurntableStops() {
-        val p = puzzle("qinian-25")
+        val p = puzzle("qinian-8")
         for (piece in p.pieces) {
             val wrong = (0 until 24).first { it !in piece.allowed }
             for (k in 0 until 4) {
@@ -70,7 +106,7 @@ class PuzzleRulesTest {
 
     @Test
     fun releaseOutcomes() {
-        val p = puzzle("bigben-25")
+        val p = puzzle("bigben-8")
         val piece = p.pieces[3]
         val home = p.homeM(3)
         val ok = piece.allowed.first()
@@ -85,7 +121,7 @@ class PuzzleRulesTest {
 
     @Test
     fun easyModeSnapsAnyOrientationNearTheHome() {
-        val p = puzzle("qinian-25")
+        val p = puzzle("qinian-8")
         val piece = p.pieces[2]
         val home = p.homeM(2)
         val wrong = piece.scatterRot
@@ -134,17 +170,17 @@ class PuzzleRulesTest {
             val p = puzzle(key)
             assertEquals(p.n, p.pieces.size)
             assertTrue(key, p.pieces.all { it.scatterRot !in it.allowed })
-            assertTrue(key, p.pieces.count { it.tipped } >= 0.6 * p.n)
+            assertTrue(key, p.pieces.count { it.tipped } >= 0.5 * p.n)
             assertEquals(p.n, p.order.distinct().size)
             assertTrue(p.segCount.all { it > 0 })
-            val cap = if (p.n == 25) 10f else 8f
+            val cap = 14f
             assertTrue(p.pieces.all { maxOf(it.extent.x, it.extent.y, it.extent.z) <= cap })
         }
     }
 
     @Test
     fun hintsAndSegments() {
-        val p = puzzle("qinian-25")
+        val p = puzzle("qinian-8")
         assertEquals(p.order[0], Rules.nextHint(p, emptySet()))
         assertEquals(p.order[1], Rules.nextHint(p, setOf(p.order[0])))
         val seg0 = p.piecesOfSegment(0)
@@ -174,18 +210,18 @@ class PuzzleRulesTest {
 
     @Test
     fun saveRoundTripAndCorruption() {
-        val p = puzzle("taj-25")
+        val p = puzzle("taj-10")
         val loose = p.pieces.drop(3).map { Rest(it.idx, it.wing, it.scatterRot) }
-        val s = SaveGame("taj", 25, listOf(0, 1), loose.drop(1), listOf(Rest(loose[0].idx, Vec3(0.1f, 0.02f, 0.05f), 5)) + Rest(2, Vec3(0f, 0.1f, 0.2f), 0), 125, 2, listOf(0), 3)
-        val back = SaveGame.parse(s.toJson(), 25)
+        val s = SaveGame("taj", 10, listOf(0, 1), loose.drop(1), listOf(Rest(loose[0].idx, Vec3(0.1f, 0.02f, 0.05f), 5)) + Rest(2, Vec3(0f, 0.1f, 0.2f), 0), 125, 2, listOf(0), 3)
+        val back = SaveGame.parse(s.toJson(), 10)
         assertEquals(s.copy(yawQuarters = 3), back)
         try {
-            SaveGame.parse(s.copy(placed = listOf(0)).toJson(), 25)
+            SaveGame.parse(s.copy(placed = listOf(0)).toJson(), 10)
             fail("missing piece accepted")
         } catch (_: IllegalArgumentException) {
         }
         try {
-            SaveGame.parse("{garbage", 25)
+            SaveGame.parse("{garbage", 10)
             fail("garbage accepted")
         } catch (_: Exception) {
         }

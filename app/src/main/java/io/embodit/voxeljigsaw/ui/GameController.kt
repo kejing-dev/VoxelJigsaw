@@ -67,7 +67,6 @@ class GameController(context: Context) : SceneListener {
         _state.update { it.copy(langSetting = store.language, lang = resolveLang(store.language), sound = store.sound, wrist = store.wrist, easy = store.easy) }
         scene.wristFollow = store.wrist
         scene.easy = store.easy
-        scene.keysSize = PanelSizes.KEYS_W * PanelSizes.M_PER_DP to PanelSizes.KEYS_H * PanelSizes.M_PER_DP
         // the step line: next piece in assembly order and the turn keys it still needs (cheap, 3 Hz)
         scope.launch {
             while (isActive) {
@@ -151,11 +150,17 @@ class GameController(context: Context) : SceneListener {
         if (homeShown) sc.showPanel(PanelIds.HOME, Vec3(0f, 0.10f, 0.21f), leanBack30, PanelSizes.HOME_W * PanelSizes.M_PER_DP, PanelSizes.homeHeight(s) * PanelSizes.M_PER_DP) else sc.hidePanel(PanelIds.HOME)
         if (s.screen == Screen.PLAY && s.overlay != Overlay.SETTINGS) {
             val h = PanelSizes.topHeight(s) * PanelSizes.M_PER_DP
-            sc.showPanel(PanelIds.TOP, Vec3(0f, 0.58f - h / 2f, 0.17f), tiltDown15, PanelSizes.TOP_W * PanelSizes.M_PER_DP, h)
+            // in the plane of the wing pieces (z 0.03) so that, seen from close by, it does not slide in front of the top inner
+            // pieces (v0.1.3 hung it at z 0.17); the wings keep |x| > 0.245 at its height (tools/bake TOPBAR)
+            sc.showPanel(PanelIds.TOP, Vec3(0f, 0.645f - h / 2f, 0.04f), tiltDown15, PanelSizes.TOP_W * PanelSizes.M_PER_DP, h)
         } else sc.hidePanel(PanelIds.TOP)
         if (s.screen == Screen.COMPLETE && s.cardShown) sc.showPanel(PanelIds.CARD, Vec3(0.33f, 0.27f, 0.08f), turnLeft15, PanelSizes.CARD_W * PanelSizes.M_PER_DP, PanelSizes.CARD_H * PanelSizes.M_PER_DP) else sc.hidePanel(PanelIds.CARD)
         if (s.screen == Screen.DISPLAY) sc.showPanel(PanelIds.PILL, Vec3(0f, 0.045f, 0.14f), leanBack30, PanelSizes.PILL_W * PanelSizes.M_PER_DP, PanelSizes.PILL_H * PanelSizes.M_PER_DP) else sc.hidePanel(PanelIds.PILL)
-        if (s.selected == null || s.screen != Screen.PLAY) sc.hidePanel(PanelIds.KEYS)
+        // turn keys: a fixed spot low in front of the turntable (below the landmark from the user's eye), not over the
+        // selected piece where they would cover the piece above it (profile D17)
+        if (s.selected != null && s.screen == Screen.PLAY && s.overlay != Overlay.SETTINGS) {
+            sc.showPanel(PanelIds.KEYS, Vec3(0f, 0.06f, 0.25f), leanBack30, PanelSizes.KEYS_W * PanelSizes.M_PER_DP, PanelSizes.KEYS_H * PanelSizes.M_PER_DP)
+        } else sc.hidePanel(PanelIds.KEYS)
     }
 
     fun onAttached() {
@@ -173,7 +178,7 @@ class GameController(context: Context) : SceneListener {
 
     private fun refreshSaves(): Map<String, Int> {
         val out = HashMap<String, Int>()
-        for (id in Landmarks.IDS) for (n in Landmarks.COUNTS) store.progress("$id-$n", n)?.let { out["$id-$n"] = it }
+        for (id in Landmarks.IDS) for (n in Landmarks.counts(id)) store.progress("$id-$n", n)?.let { out["$id-$n"] = it }
         return out
     }
 
@@ -183,7 +188,7 @@ class GameController(context: Context) : SceneListener {
             delay((350 * io.embodit.voxeljigsaw.scene.Linger.k).toLong())
             try {
                 Landmarks.IDS.forEachIndexed { i, id ->
-                    puzzle(id, 25)
+                    puzzle(id, Landmarks.count(id, 0))
                     set { it.copy(loading = (i + 1) / 3f * 0.3f) }
                     delay(60)
                 }
@@ -203,6 +208,7 @@ class GameController(context: Context) : SceneListener {
         if (s.screen == Screen.PLAY) saveNow()
         scene.select(null)
         scene.endHint()
+        scene.setPeek(false)
         scene.displayMode = false
         dismissMessage()
         set { it.copy(screen = Screen.HOME, overlay = null, saves = refreshSaves(), records = store.records(), holding = null, selected = null, hintOn = false, peekOn = false, cardShown = false, pillOpen = false, collapsing = false) }
@@ -228,11 +234,14 @@ class GameController(context: Context) : SceneListener {
         preview()
     }
 
-    fun selectCount(n: Int) {
-        if (n == s.count) return
-        set { it.copy(count = n, overlay = null) }
+    fun selectLevel(level: Int) {
+        if (level == s.level) return
+        set { it.copy(level = level.coerceIn(0, 1), overlay = null) }
         preview()
     }
+
+    /** Debug `count <n>`: the level of the current landmark with n pieces (or level 1 / 2 by number). */
+    fun selectCount(n: Int) = selectLevel(Landmarks.levelOf(s.landmark, n).takeIf { it >= 0 } ?: (n - 1).coerceIn(0, 1))
 
     // ------------------------------------------------------------------------------------------
     // a game
@@ -336,22 +345,22 @@ class GameController(context: Context) : SceneListener {
         watchTimed()
     }
 
-    fun peek() {
-        scene.peek()
-        set { it.copy(peekOn = true) }
-        watchTimed()
+    /** Peek is a switch (profile D19): the whole landmark as a ghost stays until pressed again or the game ends. */
+    fun togglePeek() {
+        val on = !s.peekOn
+        scene.setPeek(on)
+        set { it.copy(peekOn = on) }
     }
 
     private var timedJob: Job? = null
 
-    /** Clears the hint / peek flags when the scene's timers run out. */
+    /** Clears the hint flag when the scene's timer runs out. */
     private fun watchTimed() {
         timedJob?.cancel()
         timedJob = scope.launch {
-            while (isActive && (s.hintOn || s.peekOn)) {
+            while (isActive && s.hintOn) {
                 delay(100)
-                if (s.hintOn && !scene.hinting && !scene.focusing) set { it.copy(hintOn = false) }
-                if (s.peekOn && !scene.peeking) set { it.copy(peekOn = false) }
+                if (!scene.hinting && !scene.focusing) set { it.copy(hintOn = false) }
             }
         }
     }
@@ -411,9 +420,16 @@ class GameController(context: Context) : SceneListener {
     fun nextLandmark() {
         val ids = Landmarks.IDS
         val start = ids.indexOf(s.landmark)
-        val next = (1..ids.size).map { ids[(start + it) % ids.size] }.firstOrNull { store.records()["$it-${s.count}"]?.completed != true } ?: ids[(start + 1) % ids.size]
+        val next = (1..ids.size).map { ids[(start + it) % ids.size] }.firstOrNull { store.records()["$it-${Landmarks.count(it, s.level)}"]?.completed != true } ?: ids[(start + 1) % ids.size]
         set { it.copy(landmark = next) }
         goHome()
+    }
+
+    /** Card after level 1: straight on to level 2 of the same landmark. */
+    fun nextLevel() {
+        scene.displayMode = false
+        set { it.copy(level = 1) }
+        startOrResume()
     }
 
     // ------------------------------------------------------------------------------------------
@@ -517,6 +533,7 @@ class GameController(context: Context) : SceneListener {
         store.delete(p.key)
         dismissMessage()
         effects.tryEmit(Effect.Sound("done"))
+        scene.setPeek(false)
         set { it.copy(screen = Screen.COMPLETE, overlay = null, records = records, saves = it.saves - p.key, cardShown = false, selected = null, holding = null, hintOn = false, peekOn = false) }
         scene.complete(animate = true)
         JigLog.i("STATE complete key=${p.key} time=${sec}s hints=${s.hints}")
@@ -525,23 +542,35 @@ class GameController(context: Context) : SceneListener {
     // ------------------------------------------------------------------------------------------
     // debug (QA broadcast, debug builds only)
 
-    fun debugSeed(id: String, n: Int, placedCount: Int) {
-        set { it.copy(landmark = id, count = n) }
-        val p = puzzle(id, n)
-        store.delete(p.key)
-        store.taught = true
-        teachStep = -1
-        dismissMessage()
-        set { it.copy(screen = Screen.PLAY, overlay = null, placed = 0, total = p.n, hints = 0, elapsedSec = 0, factsSeen = emptyList(), holding = null, selected = null, hintOn = false, peekOn = false, collapsing = false, cardShown = false) }
-        scene.displayMode = false
-        scene.startNew(p, collapse = false)
-        val ids = p.order.take(placedCount)
-        val loose = scene.snapshot().second.filter { it.idx !in ids }
-        scene.restore(p, ids, loose, emptyList(), 0)
-        val segs = (0 until 3).filter { seg -> p.piecesOfSegment(seg).all { it in ids } }
-        set { it.copy(placed = ids.size, factsSeen = segs) }
-        guide()
-        saveNow()
+    /**
+     * Debug `seed`: a game of [id] with [n] pieces and the first [placedCount] in assembly order placed, then [then].
+     * Meshes are built in steps first, like every real path (building them in one go raised "isn't responding").
+     */
+    fun debugSeed(id: String, n: Int, placedCount: Int, then: (() -> Unit)? = null) {
+        set { it.copy(landmark = id, level = Landmarks.levelOf(id, n).coerceAtLeast(0)) }
+        val p = puzzle(id, s.count)
+        scope.launch {
+            scene.ensureMeshes(p)
+            store.delete(p.key)
+            store.taught = true
+            teachStep = -1
+            dismissMessage()
+            set { it.copy(screen = Screen.PLAY, overlay = null, placed = 0, total = p.n, hints = 0, elapsedSec = 0, factsSeen = emptyList(), holding = null, selected = null, hintOn = false, peekOn = false, collapsing = false, cardShown = false) }
+            scene.displayMode = false
+            scene.startNew(p, collapse = false)
+            val ids = p.order.take(placedCount)
+            val loose = scene.snapshot().second.filter { it.idx !in ids }
+            scene.restore(p, ids, loose, emptyList(), 0)
+            val segs = (0 until 3).filter { seg -> p.piecesOfSegment(seg).all { it in ids } }
+            set { it.copy(placed = ids.size, factsSeen = segs) }
+            guide()
+            saveNow()
+            JigLog.i("CMD seed ready key=${p.key} placed=${ids.size}")
+            if (then != null) {
+                delay(300)
+                then()
+            }
+        }
     }
 
     /** Debug S05: the first teaching line, as on a first game. */
@@ -584,7 +613,7 @@ class GameController(context: Context) : SceneListener {
 /** Attachment panel sizes in dp (design panels[].sizeDp) and the dp → metre factor of an attachment at scale 1. */
 object PanelSizes {
     const val M_PER_DP = 0.00082f
-    const val HOME_W = 560f
+    const val HOME_W = 680f
     const val HOME_H = 272f
     const val SETTINGS_H = 420f
     const val TOP_W = 480f

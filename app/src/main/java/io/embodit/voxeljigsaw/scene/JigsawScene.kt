@@ -79,24 +79,25 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
         const val WORLD_SCALE = 1.4f
 
         /**
-         * The volume holds the design's 1.0 x 0.6 x 0.5 m plus room for the panels: 8 cm under the turntable floor and
-         * 8 cm in front (headset feedback 2026-10-28 "voxel UI 被 crop 了": the tilted home panel hung below the floor and
-         * past the front face, and the volume clips whatever sticks out). Manifest = PANEL_MAX - PANEL_MIN, times WORLD_SCALE.
+         * The volume holds the design's 1.0 x 0.6 x 0.5 m made 20 cm wider and 6 cm taller for the spread-out wings (v0.1.4,
+         * profile D17), plus room for the panels: 8 cm under the turntable floor and 8 cm in front (headset feedback 2026-10-28 "voxel UI 被 crop
+         * 了": the tilted home panel hung below the floor and past the front face, and the volume clips whatever sticks out).
+         * Manifest = PANEL_MAX - PANEL_MIN, times WORLD_SCALE.
          */
-        val PANEL_MIN = Vec3(-0.5f, -0.08f, -0.25f)
-        val PANEL_MAX = Vec3(0.5f, 0.60f, 0.33f)
+        val PANEL_MIN = Vec3(-0.6f, -0.08f, -0.25f)
+        val PANEL_MAX = Vec3(0.6f, 0.66f, 0.33f)
 
         /** SpatialView origin is the volume centre; the design origin is the turntable floor centre. */
         val ROOT_OFFSET = (PANEL_MIN + PANEL_MAX) * (-0.5f * WORLD_SCALE)
-        val VOL_MIN = Vec3(-0.5f, 0f, -0.25f)
-        val VOL_MAX = Vec3(0.5f, 0.6f, 0.25f)
+        val VOL_MIN = Vec3(-0.6f, 0f, -0.25f)
+        val VOL_MAX = Vec3(0.6f, 0.66f, 0.25f)
         val TABLE = Vec3(0f, 0f, -0.04f)
         const val TABLE_R = 0.14f
         const val TABLE_TOP = 0.03f
-        const val LOOSE_MIN = 0.06f
+        /** Smallest loose-piece collider edge: thin minarets stay pickable, yet no collider reaches across a gap into a neighbour. */
+        const val LOOSE_MIN = 0.03f
         private const val FOLLOW_TAU = 0.05f
-        private const val STICK_DEAD = 0.15f
-        private const val STICK_RATE = (PI / 2).toFloat() // rad/s at full push
+        private const val STICK_EASE = 0.05f
         private val UP = Vec3(0f, 1f, 0f)
         private val RIGHT = Vec3(1f, 0f, 0f)
     }
@@ -171,22 +172,23 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
     private var grabRot = Quat4.IDENTITY
     private var wristStart: Quat4? = null
     private var wristNow: Quat4? = null
-    private var stickYaw = 0f
+
+    /** Whole 90° thumbstick steps applied to the held piece (volume frame), and the shown rotation easing towards them. */
+    private var stickTarget = Quat4.IDENTITY
+    private var stickShown = Quat4.IDENTITY
     var wristFollow = true
 
     /** Easy mode: wider snap and self-righting pieces (Rules.EASY_SNAP_M). */
     var easy = true
 
-    // selection, stick turning of a resting piece
+    // selection; thumbstick steps waiting for the selected piece's turn tween to finish
     var selected: PieceView? = null
         private set
-    private var selStick = 0f
-    private var selBase = Quat4.IDENTITY
+    private val turnQueue = ArrayDeque<Int>()
 
     // timed effects
     private var hintIdx: Int? = null
     private var hintLeft = 0f
-    private var peekLeft = 0f
     private var flashLeft = 0f
     private var sweepT = -1f
     private var collapseT = -1f
@@ -292,6 +294,7 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
         whole = model(wholeMesh, mat, "whole:${p.id}", model).also { it.enabled = false }
         peekGhost?.destroy()
         peekGhost = model(wholeMesh, ghostMats.getOrPut(p.id) { mats.voxelGhost(p.palette, 0.25f) }, "peek", model).also { it.enabled = false }
+        peekOn = false
         val t0 = SystemClock.elapsedRealtime()
         val meshes = pieceMeshes.getOrPut(p.key) {
             p.pieces.map { piece -> shared.keep(Meshes.fromData(Mesher.mesh(piece.voxels, piece.home, p.voxelM, p.palette.size), "piece:${p.key}:${piece.idx}")) }
@@ -316,6 +319,7 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
     private fun clearPieces() {
         cancelHold()
         select(null)
+        turnQueue.clear()
         tweens.clear()
         collapseT = -1f
         sweepT = -1f
@@ -372,6 +376,9 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
     fun startNew(p: Puzzle, collapse: Boolean = true) {
         load(p)
         previewSpin = false
+        spinLeft = 0f
+        sweepT = -1f
+        sweep?.enabled = false
         yaw = 0f
         pitch = 0f
         yawTarget = null
@@ -425,7 +432,7 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
     fun snapshot(): Triple<List<Int>, List<Rest>, List<Rest>> {
         val placed = views.filter { it.where == Where.PLACED }.map { it.idx }
         val loose = views.filter { it.where == Where.LOOSE || it.where == Where.HELD }.map { v ->
-            if (v.where == Where.HELD) Rest(v.idx, handle, Rot24.nearest(heldRot())) else Rest(v.idx, v.pos, v.rotIdx)
+            if (v.where == Where.HELD) Rest(v.idx, v.wing, Rot24.nearest(heldRot(settled = true))) else Rest(v.idx, v.pos, v.rotIdx)
         }
         val parked = views.filter { it.where == Where.PARKED }.map { Rest(it.idx, it.pos, it.rotIdx) }
         return Triple(placed, loose, parked)
@@ -537,27 +544,29 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
         grabRot = v.rot
         wristStart = wrist
         wristNow = wrist
-        stickYaw = 0f
+        stickTarget = Quat4.IDENTITY
+        stickShown = Quat4.IDENTITY
         v.write()
         listener.onPicked(v.idx)
         listener.onHolding(v.idx)
         JigLog.i("GRAB idx=${v.idx} at=${JigLog.pos(v.pos)} rot=${v.rotIdx}")
     }
 
-    private fun heldRot(): Quat4 {
+    /** The held piece's rotation; [settled] takes the stick steps' end point, not the eased one (a release mid-turn). */
+    private fun heldRot(settled: Boolean = false): Quat4 {
         val wristDelta = if (wristFollow) {
             val s = wristStart
             val n = wristNow
             if (s != null && n != null) n * s.conjugate() else Quat4.IDENTITY
         } else Quat4.IDENTITY
-        return (Quat4.axisAngle(UP, stickYaw) * wristDelta * grabRot).normalized()
+        return ((if (settled) stickTarget else stickShown) * wristDelta * grabRot).normalized()
     }
 
     private fun cancelHold() {
         val v = held ?: return
         v.where = Where.LOOSE
         v.pos = handle
-        v.rotIdx = Rot24.nearest(heldRot())
+        v.rotIdx = Rot24.nearest(heldRot(settled = true))
         v.rot = Rot24.quat(v.rotIdx)
         v.write()
         held = null
@@ -580,7 +589,7 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
         held = null
         shadow?.enabled = false
         listener.onHolding(null)
-        val volRot = Rot24.nearest(heldRot())
+        val volRot = Rot24.nearest(heldRot(settled = true))
         val k = yawQuarters()
         val local = toTable(handle)
         val localRot = Rot24.toTable(volRot, k)
@@ -594,16 +603,13 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
             is Release.Snap -> snapInto(v, localRot)
             is Release.WrongWay -> wrongWay(v, local, localRot)
             Release.Park -> parkAt(v, local, localRot, 0.25f)
+            // away from the landmark: back to its own wing spot, so the wings stay spread out (profile D17)
             Release.Away -> {
                 v.rotIdx = volRot
-                if (inWings(handle) && views.none { it != v && it.where == Where.LOOSE && it.pos.distanceTo(handle) < 0.04f }) {
-                    tweenTo(v, handle, Rot24.quat(volRot), 0.12f, false) { JigLog.i("PARK idx=${v.idx} stays in the wing") }
-                } else flyHome(v)
+                flyHome(v)
             }
         }
     }
-
-    private fun inWings(p: Vec3): Boolean = abs(p.x) in 0.16f..0.5f && p.y in 0.04f..0.52f
 
     /** Snaps [v] (turntable orientation [localRot]) into its home: 0.15 s ease, seam flash, sound (S08). */
     private fun snapInto(v: PieceView, localRot: Int) {
@@ -721,7 +727,7 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
 
     fun select(v: PieceView?) {
         if (selected == v) return
-        commitSelStick()
+        turnQueue.clear()
         selected = v
         if (v == null) {
             park(selOutline)
@@ -737,14 +743,18 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
     }
 
     /** Turn key: ↻ ([tip] = false) or ⤵ ([tip] = true), applied in volume space (design rules.turnKeys). */
-    fun turnSelected(tip: Boolean) {
+    fun turnSelected(tip: Boolean) = turnSelectedBy(if (tip) Rot24.TIP_X else Rot24.TURN_Y)
+
+    /** A quarter turn [key] (Rot24 index, volume space) of the selected piece; queued while it is still turning. */
+    fun turnSelectedBy(key: Int) {
         val v = selected ?: return
-        if (v.busy) return
-        commitSelStick()
-        val key = if (tip) Rot24.TIP_X else Rot24.TURN_Y
+        if (v.busy) {
+            if (turnQueue.size < 2) turnQueue.addLast(key)
+            return
+        }
         val k = yawQuarters()
         val newIdx = if (v.where == Where.PARKED) Rot24.toTable(Rot24.compose(key, Rot24.toVolume(v.rotIdx, k)), k) else Rot24.compose(key, v.rotIdx)
-        rotateResting(v, newIdx, "key ${if (tip) "tip" else "turn"}")
+        rotateResting(v, newIdx, if (key == Rot24.TIP_X || key == Rot24.TIP_BACK) "tip" else "turn")
     }
 
     private fun rotateResting(v: PieceView, newIdx: Int, why: String) {
@@ -777,13 +787,24 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
         }
     }
 
-    private fun commitSelStick() {
-        val v = selected ?: return
-        if (selStick == 0f) return
-        selStick = 0f
-        val idx = Rot24.nearest(v.rot)
-        if (v.busy) return
-        rotateResting(v, idx, "stick")
+    /**
+     * Thumbstick (profile D18, headset feedback 2026-10-28 "turn tip 分别用 joystick X Y 控制…按一下 joystick 左就转 90 度"):
+     * one push = one quarter turn, the next only after the stick came back to the middle. X turns about the vertical
+     * (right = clockwise from above, like ↻), Y tips about the left-right axis (down = the top falls towards the user,
+     * like ⤵; up = away). Acts on the held piece, else on the selected one.
+     */
+    private fun stickStep(dx: Int, dy: Int) {
+        val keys = ArrayList<Int>()
+        if (dx != 0) keys += if (dx > 0) Rot24.TURN_Y else Rot24.TURN_Y_BACK
+        if (dy != 0) keys += if (dy < 0) Rot24.TIP_X else Rot24.TIP_BACK
+        val h = held
+        for (key in keys) {
+            when {
+                h != null -> stickTarget = (Rot24.quat(key) * stickTarget).normalized()
+                selected != null -> turnSelectedBy(key)
+            }
+        }
+        JigLog.i("STICK step dx=$dx dy=$dy on=${h?.idx?.let { "held $it" } ?: selected?.idx?.let { "selected $it" } ?: "nothing"}")
     }
 
     // ------------------------------------------------------------------------------------------
@@ -841,13 +862,16 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
         return Rot24.keyPath(volRot, p.pieces[idx].allowed.map { Rot24.toVolume(it, k) }.toSet())
     }
 
-    fun peek() {
-        peekLeft = 3f * Linger.k
-        peekGhost?.enabled = true
-        JigLog.i("STATE peek")
+    /** Peek switch (profile D19): the whole landmark as a 25 % ghost on the turntable until switched off. */
+    fun setPeek(on: Boolean) {
+        if (peekOn == on) return
+        peekOn = on
+        peekGhost?.enabled = on
+        JigLog.i("STATE peek on=$on")
     }
 
-    val peeking: Boolean get() = peekLeft > 0f
+    var peekOn = false
+        private set
 
     /** Last piece in: whole mesh, gold ring up the landmark 1.2 s, one slow turn 6 s, then the card (S15). */
     fun complete(animate: Boolean) {
@@ -903,7 +927,8 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
         grabRot = Rot24.quat(Rot24.toVolume(localRot, k))
         wristStart = null
         wristNow = null
-        stickYaw = 0f
+        stickTarget = Quat4.IDENTITY
+        stickShown = Quat4.IDENTITY
         release()
     }
 
@@ -960,9 +985,6 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
 
     private val lastFit = HashMap<String, Vec3>()
 
-    /** Turn-key panel size in design metres (set by the controller from its dp size). */
-    var keysSize = 0.12f to 0.07f
-
     private fun fitInside(at: Vec3, rotation: Quat4, w: Float, h: Float): Vec3 {
         val m = 0.015f
         var lo = Vec3(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE)
@@ -996,15 +1018,6 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
         panels[id]?.setLocal(position = Vec3(0f, 0.05f, -0.2f) * WORLD_SCALE + ROOT_OFFSET, scale = Vec3(0.001f, 0.001f, 0.001f))
     }
 
-    /** Where the turn keys float: 3 cm above the selected piece, kept inside the volume. */
-    fun keysAnchor(): Vec3? {
-        val v = selected ?: return null
-        val c = volumePos(v)
-        val volRot = if (v.where == Where.PARKED) Rot24.toVolume(v.rotIdx, yawQuarters()) else v.rotIdx
-        val h = Rot24.extent(volRot, v.half * 2f) * 0.5f
-        return Vec3(c.x.coerceIn(-0.45f, 0.45f), min(c.y + h.y + 0.03f + 0.035f, 0.55f), (c.z + 0.02f).coerceIn(-0.2f, 0.23f))
-    }
-
     // ------------------------------------------------------------------------------------------
     // the frame
 
@@ -1025,13 +1038,10 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
         }
         // collapse: 0.5 s standing, then 1.2 s of pieces tumbling into the wings
         if (collapseT >= 0f) collapseFrame(dt)
-        // thumbstick
-        val x = stick.x(now)
-        val push = if (abs(x) < STICK_DEAD) 0f else sign(x) * ((abs(x) - STICK_DEAD) / (1 - STICK_DEAD)).let { it * it }
-        // right push turns clockwise seen from above (−Y rotation), like the ↻ key
-        val turn = -push * STICK_RATE * dt
+        // thumbstick: discrete quarter turns
+        stick.steps(now).let { (dx, dy) -> if (dx != 0 || dy != 0) stickStep(dx, dy) }
+        stickShown = nlerp(stickShown, stickTarget, 1f - exp(-dt / STICK_EASE))
         held?.let { v ->
-            stickYaw += turn
             val step = target - handle
             handle = handle + step * (1f - exp(-dt / FOLLOW_TAU))
             v.pos = handle
@@ -1045,14 +1055,7 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
             }
         }
         val sel = selected
-        if (held == null && sel != null && !sel.busy) {
-            if (push != 0f) {
-                if (selStick == 0f) selBase = sel.rot
-                selStick += turn
-                sel.rot = Quat4.axisAngle(UP, selStick) * selBase
-                sel.write()
-            } else if (selStick != 0f) commitSelStick()
-        }
+        if (held == null && sel != null && !sel.busy && turnQueue.isNotEmpty()) turnSelectedBy(turnQueue.removeFirst())
         // turntable
         if (spinLeft > 0f) {
             val step = min(spinLeft, (2 * PI.toFloat() / 6f) * dt)
@@ -1107,17 +1110,11 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
             }
             if (hintLeft <= 0f || hv?.where == Where.PLACED) endHint()
         }
-        if (peekLeft > 0f) {
-            peekLeft -= dt
-            if (peekLeft <= 0f) peekGhost?.enabled = false
-        }
         if (flashLeft > 0f) {
             flashLeft -= dt
             flashOutline.root.setOpacity((flashLeft / 0.35f).coerceIn(0.35f, 1f))
             if (flashLeft <= 0f) park(flashOutline)
         }
-        // turn keys follow the selected piece
-        keysAnchor()?.let { showPanel(PanelIds.KEYS, it, w = keysSize.first, h = keysSize.second) }
     }
 
     private fun collapseFrame(dt: Float) {
@@ -1200,7 +1197,7 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
 
     fun dump(): String {
         val p = puzzle
-        return "puzzle=${p?.key} yaw=${deg(yaw)} pitch=${deg(pitch)} held=${held?.idx} selected=${selected?.idx} hint=$hintIdx peek=${peekLeft > 0f} " +
+        return "puzzle=${p?.key} yaw=${deg(yaw)} pitch=${deg(pitch)} held=${held?.idx} selected=${selected?.idx} hint=$hintIdx peek=$peekOn " +
             "collapse=${collapseT >= 0f} placed=${placedCount()} parked=${views.count { it.where == Where.PARKED }} loose=${views.count { it.where == Where.LOOSE }} " +
             "frames=$frames stick=${stick.status()}"
     }

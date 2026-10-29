@@ -93,6 +93,12 @@ object Rot24 {
     /** Turn key ⤵: tip forward, the top falls towards the user (+90° about +X: +Y goes to +Z). */
     val TIP_X: Int = index(intArrayOf(1, 0, 0, 0, 0, -1, 0, 1, 0))
 
+    /** Thumbstick left: a quarter turn the other way, counter-clockwise seen from above. */
+    val TURN_Y_BACK: Int = yaw(1)
+
+    /** Thumbstick up: tip backward, the top falls away from the user (−90° about +X). */
+    val TIP_BACK: Int = index(intArrayOf(1, 0, 0, 0, 0, 1, 0, -1, 0))
+
     /** Orientation in turntable space of a piece whose volume orientation is [volumeRot], turntable at [yawQuarters]. */
     fun toTable(volumeRot: Int, yawQuarters: Int): Int = compose(yaw(-yawQuarters), volumeRot)
 

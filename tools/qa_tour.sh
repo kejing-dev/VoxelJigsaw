@@ -13,7 +13,10 @@ states="${*:-S01 S02 S03 S04 S05 S06 S07 S08 S09 S10 S11 S12 S13 S14 S15 S16 S17
 bash $DEV cmd linger on >/dev/null   # hints, peek, messages and the seam flash stay 15x longer while shooting
 for s in $states; do
   bash tools/harness/emu.sh fast on >/dev/null 2>&1
+  before="$(bash $DEV log 'CMD seed ready' 9999 | wc -l)"
   bash $DEV cmd state $s >/dev/null
+  # seeded states build their meshes in steps first (v0.1.4): wait for "CMD seed ready", at most 40 s
+  case "$s" in S01|S02|S04|S17) ;; *) for _ in $(seq 1 40); do [ "$(bash $DEV log 'CMD seed ready' 9999 | wc -l)" -gt "$before" ] && break; sleep 1; done ;; esac
   sleep "$(wait_for $s)"
   n=3; case "$s" in S01|S04|S08) n=2;; esac
   # emulator console screenshots (emu.sh shot): pico-cli capture often returns half-rendered frames on this AVD

@@ -6,7 +6,20 @@ import org.json.JSONObject
 /** Landmark ids in home order (design content.landmarks). */
 object Landmarks {
     val IDS = listOf("qinian", "bigben", "taj")
-    val COUNTS = listOf(25, 50)
+
+    /**
+     * Piece count of level 1 and level 2 per landmark (headset feedback 2026-10-28: "块数少一点 5-10 块一关，10-20 块第二关");
+     * must match assets/puzzles/levels.json written by the bake (checked by a unit test). The Taj needs 10 in level 1: its
+     * minarets only join the rest through the plinth.
+     */
+    val LEVELS = mapOf("qinian" to listOf(8, 16), "bigben" to listOf(8, 16), "taj" to listOf(10, 16))
+
+    fun count(id: String, level: Int): Int = LEVELS.getValue(id)[level.coerceIn(0, 1)]
+
+    fun counts(id: String): List<Int> = LEVELS.getValue(id)
+
+    /** Level (0 or 1) of a puzzle with [n] pieces, or -1 when it is not one of this landmark's levels. */
+    fun levelOf(id: String, n: Int): Int = LEVELS[id]?.indexOf(n) ?: -1
 }
 
 /** One voxel of a piece: model grid coordinates (x, z centred on 0, y up from 0) and a palette index. */

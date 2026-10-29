@@ -98,11 +98,11 @@ fun JigsawScreen() {
 
     Box(
         Modifier.fillMaxSize().pointerInput(Unit) {
-            // thumbstick fallback: horizontal scroll on the volume (see ControllerStick)
+            // thumbstick fallback: scroll on the volume (see ControllerStick)
             awaitPointerEventScope {
                 while (true) {
                     val e = awaitPointerEvent()
-                    if (e.type == PointerEventType.Scroll) e.changes.firstOrNull()?.let { game.stick.feedScroll(it.scrollDelta.x) }
+                    if (e.type == PointerEventType.Scroll) e.changes.firstOrNull()?.let { game.stick.feedScroll(it.scrollDelta.x, it.scrollDelta.y) }
                 }
             }
         }

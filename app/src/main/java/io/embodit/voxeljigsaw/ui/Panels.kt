@@ -193,8 +193,9 @@ private fun ColumnScope.HomeBody(s: UiState, g: GameController) {
         for (id in Landmarks.IDS) LandmarkCard(s, g, id, Modifier.weight(1f))
     }
     Spacer(Modifier.weight(1f))
+    // one bottom row (the panel is wider since v0.1.4, so it stays 272 dp tall and the preview landmark shows above it)
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-        Segments(Landmarks.COUNTS.map { t.pieces(it) }, Landmarks.COUNTS.indexOf(s.count), 84) { g.selectCount(Landmarks.COUNTS[it]) }
+        Segments(Landmarks.counts(s.landmark).mapIndexed { i, n -> t.level(i, n) }, s.level, 124) { g.selectLevel(it) }
         Spacer(Modifier.weight(1f))
         val saved = s.saves.containsKey(s.key)
         if (saved) Secondary(t.restart, small = true) { g.askRestart() }
@@ -218,16 +219,17 @@ private fun LandmarkCard(s: UiState, g: GameController, id: String, modifier: Mo
     ) {
         Box(Modifier.fillMaxWidth().height(78.dp)) {
             Image(painterResource(thumbOf(id)), contentDescription = t.name, modifier = Modifier.fillMaxWidth().height(78.dp))
-            s.saves["$id-${s.count}"]?.let { placed ->
-                Text("$placed / ${s.count}", style = PicoTheme.typography.labelSmall, color = JigColors.OnGold, modifier = Modifier.align(Alignment.TopEnd).clip(RoundedCornerShape(8.dp)).drawBehind { drawRect(JigColors.SeamGold) }.padding(horizontal = 6.dp, vertical = 2.dp))
+            val n = Landmarks.count(id, s.level)
+            s.saves["$id-$n"]?.let { placed ->
+                Text("$placed / $n", style = PicoTheme.typography.labelSmall, color = JigColors.OnGold, modifier = Modifier.align(Alignment.TopEnd).clip(RoundedCornerShape(8.dp)).drawBehind { drawRect(JigColors.SeamGold) }.padding(horizontal = 6.dp, vertical = 2.dp))
             }
         }
         Text(t.short, style = PicoTheme.typography.titleSmall, color = ink(), maxLines = 1, overflow = TextOverflow.Ellipsis)
         Text(t.place, style = PicoTheme.typography.labelSmall, color = sub(), maxLines = 1)
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            for (n in Landmarks.COUNTS) {
+            for (n in Landmarks.counts(id)) {
                 val done = s.records["$id-$n"]?.completed == true
-                // done shows as "25 ✓" in the primary label colour: jade / tertiary on the light glass were under 4.5:1
+                // done shows as "8 ✓" in the primary label colour: jade / tertiary on the light glass were under 4.5:1
                 Text(if (done) "$n ✓" else "$n", style = PicoTheme.typography.labelSmall, color = ink(), fontWeight = if (done) FontWeight.Bold else FontWeight.Normal)
             }
         }
@@ -333,7 +335,7 @@ fun TopBar(s: UiState, g: GameController) {
                     Labeled(R.drawable.ic_hint, t.hint, active = s.hintOn) { g.hint() }
                     if (s.hints > 0) Text("${s.hints}", style = PicoTheme.typography.labelSmall, color = JigColors.OnGold, modifier = Modifier.align(Alignment.TopEnd).clip(CircleShape).drawBehind { drawRect(JigColors.SeamGold) }.padding(horizontal = 4.dp))
                 }
-                Labeled(R.drawable.ic_peek, t.peek, active = s.peekOn) { g.peek() }
+                Labeled(R.drawable.ic_peek, if (s.peekOn) t.peekHide else t.peekShow, active = s.peekOn) { g.togglePeek() }
                 MuteKey(s, g)
                 Labeled(R.drawable.ic_more, t.more, active = s.overlay == Overlay.MENU) { g.openMenu() }
             }
@@ -401,7 +403,7 @@ private fun ColumnScope.StepLine(s: UiState, g: GameController) {
 }
 
 // ---------------------------------------------------------------------------------------------
-// turn keys above the selected piece
+// turn keys for the selected piece (a fixed spot in front of the turntable, never over another piece)
 
 @Composable
 fun TurnKeys(s: UiState, g: GameController) {
@@ -441,7 +443,7 @@ fun LandmarkCardPanel(s: UiState, g: GameController) {
         Spacer(Modifier.height(6.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Secondary(t.display, Modifier.weight(1f), small = true) { g.showDisplay() }
-            Primary(t.next, Modifier.weight(1f)) { g.nextLandmark() }
+            if (s.level == 0) Primary(t.nextLevel, Modifier.weight(1f)) { g.nextLevel() } else Primary(t.next, Modifier.weight(1f)) { g.nextLandmark() }
         }
     }
 }

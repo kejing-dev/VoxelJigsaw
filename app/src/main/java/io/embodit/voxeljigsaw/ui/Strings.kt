@@ -14,8 +14,13 @@ class Strings(val lang: Lang) {
     val resume = if (zh) "继续" else "Resume"
     val restart = if (zh) "重新开始" else "Restart"
     fun pieces(n: Int) = if (zh) "$n 块" else "$n pieces"
+    /** Levels (headset feedback 2026-10-28): level 1 has 8–10 pieces, level 2 has 16. */
+    fun level(i: Int, n: Int) = if (zh) "${if (i == 0) "第一关" else "第二关"} · $n 块" else "Level ${i + 1} · $n pcs"
+    val nextLevel = if (zh) "第二关" else "Level 2"
     val hint = if (zh) "提示" else "Hint"
-    val peek = if (zh) "全貌" else "Peek"
+    /** Peek is a switch (profile D19, "peak 要做成 toggle 的"): the key names what pressing it does now. */
+    val peekShow = if (zh) "看全貌" else "Show all"
+    val peekHide = if (zh) "收起全貌" else "Hide all"
     val more = if (zh) "更多" else "More"
     val settings = if (zh) "设置" else "Settings"
     val home = if (zh) "回首页" else "Home"
@@ -27,8 +32,8 @@ class Strings(val lang: Lang) {
     val intro = if (zh) "介绍" else "About"
     val back = if (zh) "返回" else "Back"
     val wrong = if (zh) "位置对了，转一转" else "Right spot, turn it around"
-    val teach = if (zh) listOf("捏住一块，拖到发光的地方", "点一下块，可以转方向", "拖已经拼好的部分，可以转台子")
-    else listOf("Pinch a piece and drag it to the glow", "Tap a piece to turn it", "Drag the built part to spin the turntable")
+    val teach = if (zh) listOf("捏住一块，拖到发光的地方", "点一下块，推摇杆或按转向键转方向", "拖已经拼好的部分，可以转台子")
+    else listOf("Pinch a piece and drag it to the glow", "Tap a piece, then push the stick or a turn key", "Drag the built part to spin the turntable")
     /** Step line (user feedback 2026-10-23: a hint for every piece, every step). */
     fun step(n: Int, total: Int) = if (zh) "第 $n / $total 步" else "Step $n of $total"
     val stepEasy = if (zh) "把发光的块拖到金色虚影，松手自动摆正" else "Drag the glowing piece onto the gold ghost; it turns itself right"
@@ -38,7 +43,8 @@ class Strings(val lang: Lang) {
     val stepAsk = if (zh) "不知道下一块？点这里或提示键" else "Which piece next? Tap here or the hint key"
     val easyMode = if (zh) "简单模式" else "Easy mode"
     val easyNote = if (zh) "一步步标出下一块，放近了自动摆正" else "Marks every next piece; close enough snaps in the right way"
-    val stickTip = if (zh) "摇杆左右转动" else "Thumbstick left/right turns the piece"
+    /** Thumbstick steps (profile D18): X turns about the vertical, Y tips; one push = 90°. */
+    val stickTip = if (zh) "摇杆左右：横转 90° · 上下：前后翻 90°" else "Stick ←→ turns 90° · ↑↓ tips 90°"
     fun confirm(name: String, n: Int) = if (zh) "重新开始$name $n 块？这一局的进度会清掉" else "Restart $name ($n pieces)? This puzzle's progress will be cleared."
     val seen = if (zh) "拼的时候看到的" else "Found while building"
     fun time(t: String, h: Int) = if (zh) "用时 $t · 提示 $h 次" else "Time $t · $h hints"
