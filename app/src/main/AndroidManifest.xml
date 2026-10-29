@@ -27,8 +27,8 @@
             <meta-data android:name="pico.spatial.windowcontainer.id" android:value="VoxelJigsawVolume" />
             <!-- 2 = Form.Volumetric -->
             <meta-data android:name="pico.spatial.windowcontainer.style" android:value="2" />
-            <!-- width x height x depth, metres: the design 1.0 x 0.6 x 0.5 m times JigsawScene.WORLD_SCALE 1.4 (user feedback 2026-10-23) -->
-            <meta-data android:name="pico.spatial.windowcontainer.defaultsize" android:value="1.4x0.84x0.7" />
+            <!-- width x height x depth, metres: JigsawScene.PANEL_MAX - PANEL_MIN (design 1.0 x 0.68 x 0.58 m, the 1.0 x 0.6 x 0.5 m play space plus 8 cm under the floor and 8 cm in front for the panels) times WORLD_SCALE 1.4 -->
+            <meta-data android:name="pico.spatial.windowcontainer.defaultsize" android:value="1.4x0.952x0.812" />
             <meta-data android:name="pico.spatial.windowcontainer.defaultsize.unit" android:value="meters" />
             <!-- 0 = ContainerResizeType.Automatic -->
             <meta-data android:name="pico.spatial.windowcontainer.resizetype" android:value="0" />

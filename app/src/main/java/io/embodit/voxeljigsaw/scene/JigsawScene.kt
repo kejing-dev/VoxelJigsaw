@@ -40,6 +40,8 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 
 /** What the scene tells the game (all on the main thread). */
 interface SceneListener {
@@ -72,13 +74,20 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
     companion object {
         /**
          * Everything in the volume is drawn this much larger than the design's metres (user feedback 2026-10-23:
-         * "整体要大一点"). The design numbers stay as they are; the root entity and the panels carry the factor,
-         * and the manifest volume is 1.0 x 0.6 x 0.5 m times it.
+         * "整体要大一点"). The design numbers stay as they are; the root entity and the panels carry the factor.
          */
         const val WORLD_SCALE = 1.4f
 
-        /** SpatialView origin is the volume centre; the design origin is the floor centre. */
-        val ROOT_OFFSET = Vec3(0f, -0.30f * WORLD_SCALE, 0f)
+        /**
+         * The volume holds the design's 1.0 x 0.6 x 0.5 m plus room for the panels: 8 cm under the turntable floor and
+         * 8 cm in front (headset feedback 2026-10-28 "voxel UI 被 crop 了": the tilted home panel hung below the floor and
+         * past the front face, and the volume clips whatever sticks out). Manifest = PANEL_MAX - PANEL_MIN, times WORLD_SCALE.
+         */
+        val PANEL_MIN = Vec3(-0.5f, -0.08f, -0.25f)
+        val PANEL_MAX = Vec3(0.5f, 0.60f, 0.33f)
+
+        /** SpatialView origin is the volume centre; the design origin is the turntable floor centre. */
+        val ROOT_OFFSET = (PANEL_MIN + PANEL_MAX) * (-0.5f * WORLD_SCALE)
         val VOL_MIN = Vec3(-0.5f, 0f, -0.25f)
         val VOL_MAX = Vec3(0.5f, 0.6f, 0.25f)
         val TABLE = Vec3(0f, 0f, -0.04f)
@@ -245,7 +254,35 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
         JigLog.i("SCENE attached panels=${panels.keys}")
     }
 
-    /** Builds the meshes of [p] (once per puzzle key) and lays the pieces out at their homes, hidden. */
+    private val meshLock = kotlinx.coroutines.sync.Mutex()
+
+    /**
+     * Builds the meshes of [p] once, without holding the main thread: greedy meshing runs on a worker, and the
+     * SDK mesh resources are created one per main-thread turn with a 1 ms pause between them. Creating them in one go
+     * blocked input for ~10 s on an idle emulator and raised "isn't responding" (2026-10-28, v0.1.2).
+     */
+    suspend fun ensureMeshes(p: Puzzle, progress: (Float) -> Unit = {}) {
+        meshLock.withLock {
+            if (!wholeMeshes.containsKey(p.id)) {
+                val d = withContext(Dispatchers.Default) { Mesher.mesh(p.pieces.flatMap { it.voxels }, Vec3.ZERO, p.voxelM, p.palette.size) }
+                wholeMeshes[p.id] = shared.keep(Meshes.fromData(d, "whole:${p.id}"))
+                delay(1)
+            }
+            if (pieceMeshes.containsKey(p.key)) return
+            val t0 = SystemClock.elapsedRealtime()
+            val datas = withContext(Dispatchers.Default) { p.pieces.map { Mesher.mesh(it.voxels, it.home, p.voxelM, p.palette.size) } }
+            val out = ArrayList<MeshResource>(datas.size)
+            datas.forEachIndexed { i, d ->
+                out += shared.keep(Meshes.fromData(d, "piece:${p.key}:$i"))
+                progress((i + 1f) / datas.size)
+                delay(1)
+            }
+            pieceMeshes[p.key] = out
+            JigLog.i("LOAD meshes puzzle=${p.key} ${SystemClock.elapsedRealtime() - t0}ms (stepped)")
+        }
+    }
+
+    /** Builds the meshes of [p] (once per puzzle key; normally already made by [ensureMeshes]) and lays the pieces out at their homes, hidden. */
     fun load(p: Puzzle) {
         clearPieces()
         puzzle = p
@@ -909,9 +946,51 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
     // ------------------------------------------------------------------------------------------
     // attachment panels: shown in place or shrunk to nothing at the volume centre (kept enabled)
 
-    fun showPanel(id: String, at: Vec3, rotation: Quat4 = Quat4.IDENTITY) {
-        panels[id]?.setLocal(position = at * WORLD_SCALE + ROOT_OFFSET, rotation = rotation, scale = Vec3(WORLD_SCALE, WORLD_SCALE, WORLD_SCALE))
+    /**
+     * Shows panel [id] centred at [at] (design metres) unless that would let any part of a [w] x [h] m panel (design
+     * metres, tilted by [rotation]) leave the volume: then it moves the least distance that keeps the whole panel 1.5 cm
+     * inside. Nothing sticking out = nothing clipped.
+     */
+    fun showPanel(id: String, at: Vec3, rotation: Quat4 = Quat4.IDENTITY, w: Float = 0f, h: Float = 0f) {
+        val fitted = if (w > 0f && h > 0f) fitInside(at, rotation, w, h) else at
+        if (fitted.distanceTo(at) > 0.001f && lastFit[id] != fitted) JigLog.i("PANEL fit id=$id at=${JigLog.pos(at)} -> ${JigLog.pos(fitted)} size=${"%.3f".format(w)}x${"%.3f".format(h)}")
+        lastFit[id] = fitted
+        panels[id]?.setLocal(position = fitted * WORLD_SCALE + ROOT_OFFSET, rotation = rotation, scale = Vec3(WORLD_SCALE, WORLD_SCALE, WORLD_SCALE))
     }
+
+    private val lastFit = HashMap<String, Vec3>()
+
+    /** Turn-key panel size in design metres (set by the controller from its dp size). */
+    var keysSize = 0.12f to 0.07f
+
+    private fun fitInside(at: Vec3, rotation: Quat4, w: Float, h: Float): Vec3 {
+        val m = 0.015f
+        var lo = Vec3(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE)
+        var hi = Vec3(-Float.MAX_VALUE, -Float.MAX_VALUE, -Float.MAX_VALUE)
+        for (sx in intArrayOf(-1, 1)) for (sy in intArrayOf(-1, 1)) {
+            val c = rotation.rotate(Vec3(sx * w / 2, sy * h / 2, 0f))
+            lo = Vec3(min(lo.x, c.x), min(lo.y, c.y), min(lo.z, c.z))
+            hi = Vec3(max(hi.x, c.x), max(hi.y, c.y), max(hi.z, c.z))
+        }
+        fun axis(p: Float, l: Float, u: Float, min: Float, max: Float): Float {
+            val low = min + m - l
+            val high = max - m - u
+            return if (low > high) (low + high) / 2 else p.coerceIn(low, high)
+        }
+        return Vec3(axis(at.x, lo.x, hi.x, PANEL_MIN.x, PANEL_MAX.x), axis(at.y, lo.y, hi.y, PANEL_MIN.y, PANEL_MAX.y), axis(at.z, lo.z, hi.z, PANEL_MIN.z, PANEL_MAX.z))
+    }
+
+    /** Debug `panels`: each shown panel's measured bounds in design metres against the volume. */
+    fun panelReport(): String =
+        panels.entries.joinToString(" | ") { (id, e) ->
+            val b = runCatching { e.getVisualBounds(root, true, true) }.getOrNull()
+            if (b == null) "$id=?" else {
+                val c = b.center
+                val hf = b.halfExtent
+                val out = c.x - hf.x < PANEL_MIN.x || c.x + hf.x > PANEL_MAX.x || c.y - hf.y < PANEL_MIN.y || c.y + hf.y > PANEL_MAX.y || c.z - hf.z < PANEL_MIN.z || c.z + hf.z > PANEL_MAX.z
+                String.format(java.util.Locale.US, "%s c=(%.3f,%.3f,%.3f) half=(%.3f,%.3f,%.3f)%s", id, c.x, c.y, c.z, hf.x, hf.y, hf.z, if (out) " OUTSIDE" else "")
+            }
+        }
 
     fun hidePanel(id: String) {
         panels[id]?.setLocal(position = Vec3(0f, 0.05f, -0.2f) * WORLD_SCALE + ROOT_OFFSET, scale = Vec3(0.001f, 0.001f, 0.001f))
@@ -1038,7 +1117,7 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
             if (flashLeft <= 0f) park(flashOutline)
         }
         // turn keys follow the selected piece
-        keysAnchor()?.let { showPanel(PanelIds.KEYS, it) }
+        keysAnchor()?.let { showPanel(PanelIds.KEYS, it, w = keysSize.first, h = keysSize.second) }
     }
 
     private fun collapseFrame(dt: Float) {

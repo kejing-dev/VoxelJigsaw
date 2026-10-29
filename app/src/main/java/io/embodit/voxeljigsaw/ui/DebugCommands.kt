@@ -51,6 +51,7 @@ class DebugCommands(private val g: GameController) : BroadcastReceiver() {
             "yaw" -> scene.debugYaw(parts.getOrElse(0) { "0" }.toInt())
             "locale" -> g.debugLocale(parts.getOrElse(0) { "follow" })
             "corruptSave" -> g.debugCorruptSave()
+            "panels" -> JigLog.i("PANELS ${scene.panelReport()}")
             "boundsCheck" -> scene.boundsCheck().let { JigLog.i("BOUNDS outside=${it.size} ${it.joinToString(" ")}") }
             "stick" -> g.stick.debugHold(parts.getOrElse(0) { "0.8" }.toFloat(), parts.getOrElse(1) { "1500" }.toLong())
             "linger" -> io.embodit.voxeljigsaw.scene.Linger.k = if (parts.getOrElse(0) { "on" } == "on") 15f else 1f

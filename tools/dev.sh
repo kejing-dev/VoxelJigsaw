@@ -30,13 +30,13 @@ case "${1:-}" in
   fg)
     check; adb -s $DEV shell "dumpsys activity activities | grep -E 'topResumedActivity' | head -3" | tr -d '\r' ;;
   install)
-    check; pico-cli app install "$ROOT/app/build/outputs/apk/debug/app-debug.apk" --device $DEV 2>&1 | tail -2 ;;
+    check; adb -s $DEV install -r "$ROOT/app/build/outputs/apk/debug/app-debug.apk" 2>&1 | tail -2 ;;
   launch)
-    check; adb -s $DEV logcat -c; pico-cli app launch $PKG --device $DEV 2>&1 | tail -1 ;;
+    check; adb -s $DEV logcat -c; adb -s $DEV shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 2>&1 | tail -1 ;;
   stop)
     check; adb -s $DEV shell am force-stop $PKG; echo stopped ;;
   relaunch)
-    check; adb -s $DEV shell am force-stop $PKG; sleep 1; adb -s $DEV logcat -c; pico-cli app launch $PKG --device $DEV 2>&1 | tail -1 ;;
+    check; adb -s $DEV shell am force-stop $PKG; sleep 1; adb -s $DEV logcat -c; adb -s $DEV shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 2>&1 | tail -1 ;;
   cmd)
     check
     extra=""

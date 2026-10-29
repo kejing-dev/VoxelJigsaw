@@ -54,9 +54,20 @@ screenshots), `dump`, `resetAll`. Every command logs `CMD …`; state changes lo
 - off in Settings → original design rules (2.5 cm, orientation must match; step line then shows the key presses ↻ ⤵).
 - everything is 1.4× the design size (volume 1.4 × 0.84 × 0.7 m).
 
+## Panels stay inside the volume (v0.1.3, headset feedback 2026-10-28 "voxel UI 被 crop 了")
+
+The volume clips anything that sticks out. The tilted home panel hung below the turntable floor and past the front face,
+so its bottom row was cut on the headset. Now the volume is the play space plus 8 cm under the floor and 8 cm in front
+(`JigsawScene.PANEL_MIN / PANEL_MAX`, manifest 1.4 × 0.952 × 0.812 m), and `showPanel` moves each panel the least distance
+that keeps its whole tilted rectangle 1.5 cm inside (log `PANEL fit …`). Panel sizes come from `PanelSizes` (dp × 0.00082 m);
+`getVisualBounds` returns zeros for attachment panels, so the `panels` debug command cannot measure them.
+
+Meshes are built in steps (`JigsawScene.ensureMeshes`): one SDK mesh per main-thread turn. Building a landmark in one go
+blocked input ~10 s on the idle emulator and raised "isn't responding" (v0.1.2, ANR trace 2026-10-28 18:52).
+
 ## Known limits
 
 - Thumbstick: `ControllerTrackingProvider` only reports in Full Space; this is a Shared Space volume. The listener and a
   horizontal-scroll fallback are wired but unverified on a device; `stick` debug command drives the same code path.
 - `ObjectAudioComponent` not used: SoundPool with four synthesised wavs; mute key on the home panel and top bar.
-- Mesh creation is slow while the emulator idles (~10 s per landmark at 2–4 fps; 0.4 s at 60 fps).
+- Mesh creation is slow while the emulator idles (~14 s per landmark at 2–4 fps; 0.4 s at 60 fps), but stepped, so input stays live.

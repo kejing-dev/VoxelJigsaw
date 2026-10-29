@@ -67,6 +67,7 @@ class GameController(context: Context) : SceneListener {
         _state.update { it.copy(langSetting = store.language, lang = resolveLang(store.language), sound = store.sound, wrist = store.wrist, easy = store.easy) }
         scene.wristFollow = store.wrist
         scene.easy = store.easy
+        scene.keysSize = PanelSizes.KEYS_W * PanelSizes.M_PER_DP to PanelSizes.KEYS_H * PanelSizes.M_PER_DP
         // the step line: next piece in assembly order and the turn keys it still needs (cheap, 3 Hz)
         scope.launch {
             while (isActive) {
@@ -147,13 +148,13 @@ class GameController(context: Context) : SceneListener {
         if (!attached) return
         val sc = scene
         val homeShown = s.screen == Screen.HOME || s.screen == Screen.LOADING || s.screen == Screen.ERROR || (s.screen == Screen.PLAY && s.overlay == Overlay.SETTINGS)
-        if (homeShown) sc.showPanel(PanelIds.HOME, Vec3(0f, 0.10f, 0.21f), leanBack30) else sc.hidePanel(PanelIds.HOME)
+        if (homeShown) sc.showPanel(PanelIds.HOME, Vec3(0f, 0.10f, 0.21f), leanBack30, PanelSizes.HOME_W * PanelSizes.M_PER_DP, PanelSizes.homeHeight(s) * PanelSizes.M_PER_DP) else sc.hidePanel(PanelIds.HOME)
         if (s.screen == Screen.PLAY && s.overlay != Overlay.SETTINGS) {
             val h = PanelSizes.topHeight(s) * PanelSizes.M_PER_DP
-            sc.showPanel(PanelIds.TOP, Vec3(0f, 0.58f - h / 2f, 0.17f), tiltDown15)
+            sc.showPanel(PanelIds.TOP, Vec3(0f, 0.58f - h / 2f, 0.17f), tiltDown15, PanelSizes.TOP_W * PanelSizes.M_PER_DP, h)
         } else sc.hidePanel(PanelIds.TOP)
-        if (s.screen == Screen.COMPLETE && s.cardShown) sc.showPanel(PanelIds.CARD, Vec3(0.33f, 0.27f, 0.08f), turnLeft15) else sc.hidePanel(PanelIds.CARD)
-        if (s.screen == Screen.DISPLAY) sc.showPanel(PanelIds.PILL, Vec3(0f, 0.045f, 0.14f), leanBack30) else sc.hidePanel(PanelIds.PILL)
+        if (s.screen == Screen.COMPLETE && s.cardShown) sc.showPanel(PanelIds.CARD, Vec3(0.33f, 0.27f, 0.08f), turnLeft15, PanelSizes.CARD_W * PanelSizes.M_PER_DP, PanelSizes.CARD_H * PanelSizes.M_PER_DP) else sc.hidePanel(PanelIds.CARD)
+        if (s.screen == Screen.DISPLAY) sc.showPanel(PanelIds.PILL, Vec3(0f, 0.045f, 0.14f), leanBack30, PanelSizes.PILL_W * PanelSizes.M_PER_DP, PanelSizes.PILL_H * PanelSizes.M_PER_DP) else sc.hidePanel(PanelIds.PILL)
         if (s.selected == null || s.screen != Screen.PLAY) sc.hidePanel(PanelIds.KEYS)
     }
 
@@ -183,9 +184,11 @@ class GameController(context: Context) : SceneListener {
             try {
                 Landmarks.IDS.forEachIndexed { i, id ->
                     puzzle(id, 25)
-                    set { it.copy(loading = (i + 1) / 3f) }
+                    set { it.copy(loading = (i + 1) / 3f * 0.3f) }
                     delay(60)
                 }
+                // the first preview's meshes, built in steps under the loading bar
+                scene.ensureMeshes(puzzle(s.landmark, s.count)) { f -> set { it.copy(loading = 0.3f + 0.7f * f) } }
                 set { it.copy(records = store.records(), saves = refreshSaves()) }
                 goHome()
             } catch (t: Throwable) {
@@ -207,10 +210,15 @@ class GameController(context: Context) : SceneListener {
     }
 
     private fun preview() {
-        try {
-            scene.showPreview(puzzle(s.landmark, s.count))
+        val p = try {
+            puzzle(s.landmark, s.count)
         } catch (t: Throwable) {
             fail(t, saveLost = false)
+            return
+        }
+        scope.launch {
+            scene.ensureMeshes(p)
+            if (s.screen == Screen.HOME && s.key == p.key) scene.showPreview(p)
         }
     }
 
@@ -268,18 +276,25 @@ class GameController(context: Context) : SceneListener {
         teachStep = if (store.taught) -1 else 0
         set { it.copy(screen = Screen.PLAY, overlay = null, placed = 0, total = p.n, hints = 0, elapsedSec = 0, factsSeen = emptyList(), holding = null, selected = null, hintOn = false, peekOn = false, cardShown = false, collapsing = true, saves = it.saves - it.key) }
         scene.displayMode = false
-        scene.startNew(p, collapse = true)
         lastSavedPlaced = -1
+        scope.launch {
+            scene.ensureMeshes(p)
+            if (s.screen == Screen.PLAY && s.key == p.key) scene.startNew(p, collapse = true)
+        }
     }
 
     private fun resume(save: SaveGame) {
         val p = puzzle(s.landmark, s.count)
         dismissMessage()
         teachStep = -1
-        scene.restore(p, save.placed, save.loose, save.parked, save.yawQuarters)
         set { it.copy(screen = Screen.PLAY, overlay = null, placed = save.placed.size, total = p.n, hints = save.hints, elapsedSec = save.elapsedSec, factsSeen = save.factsSeen, holding = null, selected = null, hintOn = false, peekOn = false, collapsing = false) }
         lastSavedPlaced = save.placed.size
-        guide()
+        scope.launch {
+            scene.ensureMeshes(p)
+            if (s.screen != Screen.PLAY || s.key != p.key) return@launch
+            scene.restore(p, save.placed, save.loose, save.parked, save.yawQuarters)
+            guide()
+        }
     }
 
     fun saveNow() {
