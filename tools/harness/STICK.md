@@ -1,6 +1,6 @@
-# Scripted controller thumbstick on PICO Emulator 6.1.0 (emulator-5560, AVD PICO_6_1_Verified, qemu PID 39248)
+# Scripted controller thumbstick on PICO Emulator 6.1.0 (emulator-5562, AVD PICO_6_1_Factory2, qemu PID 39248)
 
-Status: WORKS (verified 2026-10-22 on emulator-5560). Host input is PostMessage + UI Automation only.
+Status: WORKS (verified 2026-10-22 on emulator-5562). Host input is PostMessage + UI Automation only.
 
 ## How it works
 The emulator's Settings > Controller Setting page (opened by the `controller_button` toolbar button) maps PC keys
@@ -30,11 +30,11 @@ $S right 1000 left       # left controller stick (needs left controller online)
 $S read                  # raw driver bytes (rocker_x/rocker_y, 128 = centre)
 $S mode eye              # back to the default mode the rest of the harness assumes
 ```
-stick.sh wraps `C:\Users\Admin\Downloads\furniture-fit\tools\harness\emu.ps1` (fast on / keydown / keyup, `-Avd PICO_6_1_Verified`)
-and `emu_mode.ps1 -Avd PICO_6_1_Verified -Serial emulator-5560`. Each powershell call takes ~1 s, so the real hold is
+stick.sh wraps `C:\Users\Admin\Downloads\furniture-fit\tools\harness\emu.ps1` (fast on / keydown / keyup, `-Avd PICO_6_1_Factory2`)
+and `emu_mode.ps1 -Avd PICO_6_1_Factory2 -Serial emulator-5562`. Each powershell call takes ~1 s, so the real hold is
 about HOLD_MS + 1 s. The system samples the stick within ~10-500 ms, so hold at least 600 ms.
 
-## Evidence (logcat, emulator-5560)
+## Evidence (logcat, emulator-5562)
 ```
 EmuPipeService-Controller: run_controller: hand[1] key[15] value[128], setHookKeyValue rv[0]
 EmuPipeService-Controller: run_controller: hand[1] key[16] value[255], setHookKeyValue rv[0]

@@ -127,8 +127,8 @@ class GameController(context: Context) : SceneListener {
                 s.message?.kind == MessageKind.WRONG -> "S09"
                 s.message?.kind == MessageKind.FACT -> "S12"
                 SystemClock.elapsedRealtime() - snappedAt < 600 * io.embodit.voxeljigsaw.scene.Linger.k -> "S08"
-                s.selected != null -> "S07"
                 s.hintOn && (scene.focusing || scene.hinting) -> "S10"
+                s.selected != null -> "S07"
                 s.peekOn -> "S11"
                 else -> "S05"
             }
@@ -570,19 +570,18 @@ class GameController(context: Context) : SceneListener {
 object PanelSizes {
     const val M_PER_DP = 0.00082f
     const val HOME_W = 560f
-    const val HOME_H = 244f
+    const val HOME_H = 272f
     const val SETTINGS_H = 420f
     const val TOP_W = 480f
-    const val TOP_H = 132f
-    const val TOP_MSG_H = 150f
-    const val TOP_STEP_KEYS_H = 150f
-    const val MENU_H = 280f
-    const val KEYS_W = 112f
-    const val KEYS_H = 48f
+    const val TOP_H = 170f
+    const val TOP_MSG_H = 188f
+    const val MENU_H = 320f
+    const val KEYS_W = 152f
+    const val KEYS_H = 84f
     const val CARD_W = 290f
     const val CARD_H = 388f
-    const val PILL_W = 220f
-    const val PILL_H = 48f
+    const val PILL_W = 260f
+    const val PILL_H = 64f
 
     fun topHeight(s: UiState): Float =
         when {

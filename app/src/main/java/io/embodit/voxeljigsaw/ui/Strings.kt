@@ -45,6 +45,8 @@ class Strings(val lang: Lang) {
     val language = if (zh) "语言" else "Language"
     val follow = if (zh) "跟随系统" else "System"
     val sound = if (zh) "音效" else "Sound"
+    val mute = if (zh) "静音" else "Mute"
+    val unmute = if (zh) "打开声音" else "Sound on"
     val wrist = if (zh) "手腕跟转" else "Turn with wrist"
     val wristNote = if (zh) "关掉后拿起的块只移动不转，用转向键转" else "Off: a held piece only moves; turn it with the keys"
     val about = if (zh) "关于" else "About"
@@ -57,6 +59,8 @@ class Strings(val lang: Lang) {
     val best = if (zh) "最好" else "Best"
     val turnY = if (zh) "横着转 90°" else "Turn 90°"
     val tipX = if (zh) "往前翻 90°" else "Tip forward 90°"
+    val turnYShort = if (zh) "横转" else "Turn"
+    val tipXShort = if (zh) "前翻" else "Tip"
     val done = if (zh) "已完成" else "Done"
 
     companion object {

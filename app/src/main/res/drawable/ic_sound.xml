@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- sound on: speaker with two waves (24-unit viewport) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path android:fillColor="#FFFFFFFF" android:pathData="M3,9h4l5,-4v14l-5,-4H3z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M15.5,8.5a5,5 0,0 1,0 7l-1.4,-1.4a3,3 0,0 0,0 -4.2z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M18.4,5.6a9,9 0,0 1,0 12.8l-1.4,-1.4a7,7 0,0 0,0 -10z" />
+</vector>

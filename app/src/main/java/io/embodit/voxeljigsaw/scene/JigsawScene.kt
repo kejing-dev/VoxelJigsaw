@@ -923,7 +923,7 @@ class JigsawScene(private val listener: SceneListener, private val stick: Contro
         val c = volumePos(v)
         val volRot = if (v.where == Where.PARKED) Rot24.toVolume(v.rotIdx, yawQuarters()) else v.rotIdx
         val h = Rot24.extent(volRot, v.half * 2f) * 0.5f
-        return Vec3(c.x.coerceIn(-0.45f, 0.45f), min(c.y + h.y + 0.03f + 0.02f, 0.57f), (c.z + 0.02f).coerceIn(-0.2f, 0.23f))
+        return Vec3(c.x.coerceIn(-0.45f, 0.45f), min(c.y + h.y + 0.03f + 0.035f, 0.55f), (c.z + 0.02f).coerceIn(-0.2f, 0.23f))
     }
 
     // ------------------------------------------------------------------------------------------

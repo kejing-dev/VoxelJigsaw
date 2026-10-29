@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Voxel Jigsaw developer helper (Git Bash). Every device command is pinned to emulator-5560 (AVD
-# PICO_6_1_Verified, the factory lane) and refuses to run when that serial is another AVD.
+# Voxel Jigsaw developer helper (Git Bash). Every device command is pinned to emulator-5562 (AVD
+# PICO_6_1_Factory2, the factory lane) and refuses to run when that serial is another AVD.
 #
 #   tools/dev.sh build                 assembleDebug            -> .scratch/build.log
 #   tools/dev.sh fg                    which app is in front on the emulator
@@ -8,8 +8,8 @@
 #   tools/dev.sh cmd NAME [TEXT] [NUMBERS]     debug broadcast (see app/src/main/java/io/embodit/voxeljigsaw/ui/DebugCommands.kt)
 #   tools/dev.sh log [REGEX] [LINES]   logcat, tag FurnitureFit
 #   tools/dev.sh crash                 last crash lines of the app
-DEV=${DEV:-emulator-5560}
-AVD=${AVD:-PICO_6_1_Verified}
+DEV=${DEV:-emulator-5562}
+AVD=${AVD:-PICO_6_1_Factory2}
 PKG=io.embodit.voxeljigsaw
 TAG=VoxelJigsaw
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"

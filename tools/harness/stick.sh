@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Deflect a PICO Emulator 6.1.0 controller thumbstick from a script (emulator-5560 / AVD PICO_6_1_Verified only).
+# Deflect a PICO Emulator 6.1.0 controller thumbstick from a script (emulator-5562 / AVD PICO_6_1_Factory2 only).
 # Mechanism: the emulator's Controller Setting page maps keys to stick directions
 #   right controller: I=up J=left K=down L=right      left controller: W=up A=left S=down D=right
 # Keys are POSTED (WM_KEYDOWN/WM_KEYUP) to the emulator's Qt main window by voxel-jigsaw/tools/harness/emu.ps1
@@ -15,8 +15,8 @@
 #                                         (raw axes are rotated: L/R change rocker_y, I/K change rocker_x;
 #                                          the normalised system value in InputDeviceManager logcat is rockerX=+-1 for L/J)
 set -u
-DEV=emulator-5560
-AVD=PICO_6_1_Verified
+DEV=emulator-5562
+AVD=PICO_6_1_Factory2
 H='C:\Users\Admin\Downloads\voxel-jigsaw\tools\harness'
 EMU="powershell -NoProfile -ExecutionPolicy Bypass -File $H\emu.ps1"
 MODE="powershell -NoProfile -ExecutionPolicy Bypass -File $H\emu_mode.ps1"

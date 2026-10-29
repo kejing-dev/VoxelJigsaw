@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.pico.spatial.ui.design.Button
@@ -82,8 +83,12 @@ private fun Empty(w: Float, h: Float) = Box(Modifier.size(w.dp, h.dp))
 @Composable
 private fun ink() = PicoTheme.colorScheme.labelPrimary
 
+/**
+ * Secondary text. labelSecondary measured 3.95–4.5:1 on the Regular glass (tools/contrast.py, build/ui-audit.md), under the
+ * factory's 4.5:1 rule (profile D13), so small text uses the primary label colour; size and weight carry the hierarchy.
+ */
 @Composable
-private fun sub() = PicoTheme.colorScheme.labelSecondary
+private fun sub() = PicoTheme.colorScheme.labelPrimary
 
 @Composable
 private fun Primary(label: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
@@ -102,7 +107,7 @@ private fun Secondary(label: String, modifier: Modifier = Modifier, small: Boole
 }
 
 @Composable
-private fun RoundIcon(icon: Int, label: String, size: Int = 40, active: Boolean = false, onClick: () -> Unit) {
+private fun RoundIcon(icon: Int, label: String, size: Int = 48, active: Boolean = false, onClick: () -> Unit) {
     val c = PicoTheme.colorScheme
     val tint = if (active) JigColors.OnGold else c.labelPrimary
     IconButton(
@@ -138,6 +143,23 @@ private fun Segments(labels: List<String>, selected: Int, itemWidth: Int, onPick
             )
         }
     }
+}
+
+/** A 48 dp round key with its name under it (factory B19: buttons >= 48 dp, icon keys carry words). */
+@Composable
+private fun Labeled(icon: Int, label: String, active: Boolean = false, onClick: () -> Unit) {
+    Column(Modifier.width(60.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        RoundIcon(icon, label, 48, active, onClick)
+        Spacer(Modifier.height(2.dp))
+        Text(label, style = PicoTheme.typography.labelSmall, color = sub(), maxLines = 1, overflow = TextOverflow.Ellipsis)
+    }
+}
+
+/** Mute key on the main panels (factory default D15: a mute switch you can see, not only in settings; remembered). */
+@Composable
+private fun MuteKey(s: UiState, g: GameController) {
+    val t = s.strings
+    Labeled(if (s.sound) R.drawable.ic_sound else R.drawable.ic_mute, if (s.sound) t.mute else t.unmute) { g.setSound(!s.sound) }
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -177,7 +199,8 @@ private fun ColumnScope.HomeBody(s: UiState, g: GameController) {
         val saved = s.saves.containsKey(s.key)
         if (saved) Secondary(t.restart, small = true) { g.askRestart() }
         Primary(if (saved) t.resume else t.start, Modifier.width(120.dp)) { g.startOrResume() }
-        RoundIcon(R.drawable.ic_gear, t.settings) { g.openSettings() }
+        MuteKey(s, g)
+        Labeled(R.drawable.ic_gear, t.settings) { g.openSettings() }
     }
 }
 
@@ -204,7 +227,8 @@ private fun LandmarkCard(s: UiState, g: GameController, id: String, modifier: Mo
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             for (n in Landmarks.COUNTS) {
                 val done = s.records["$id-$n"]?.completed == true
-                Text(if (done) "$n✓" else "$n", style = PicoTheme.typography.labelSmall, color = if (done) c.passable else c.labelTertiary)
+                // done shows as "25 ✓" in the primary label colour: jade / tertiary on the light glass were under 4.5:1
+                Text(if (done) "$n ✓" else "$n", style = PicoTheme.typography.labelSmall, color = ink(), fontWeight = if (done) FontWeight.Bold else FontWeight.Normal)
             }
         }
     }
@@ -234,7 +258,7 @@ private fun ColumnScope.ConfirmBody(s: UiState, g: GameController) {
 private fun ColumnScope.SettingsBody(s: UiState, g: GameController) {
     val t = s.strings
     Row(verticalAlignment = Alignment.CenterVertically) {
-        RoundIcon(R.drawable.ic_back, t.back, 36) { g.closeOverlay() }
+        RoundIcon(R.drawable.ic_back, t.back) { g.closeOverlay() }
         Spacer(Modifier.width(10.dp))
         Text(t.settings, style = PicoTheme.typography.titleMedium, color = ink())
     }
@@ -299,18 +323,19 @@ fun TopBar(s: UiState, g: GameController) {
                 LinearProgressIndicator(progress = { if (s.total == 0) 0f else s.placed / s.total.toFloat() }, modifier = Modifier.fillMaxWidth().padding(end = 8.dp))
                 Spacer(Modifier.height(3.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(painterResource(R.drawable.ic_stick), contentDescription = null, modifier = Modifier.size(12.dp), tint = PicoTheme.colorScheme.labelTertiary)
+                    Icon(painterResource(R.drawable.ic_stick), contentDescription = null, modifier = Modifier.size(12.dp), tint = sub())
                     Spacer(Modifier.width(4.dp))
-                    Text(t.stickTip, style = PicoTheme.typography.labelSmall, color = PicoTheme.colorScheme.labelTertiary, maxLines = 1)
+                    Text(t.stickTip, style = PicoTheme.typography.labelSmall, color = sub(), maxLines = 1)
                 }
             }
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
                 Box {
-                    RoundIcon(R.drawable.ic_hint, t.hint, active = s.hintOn) { g.hint() }
+                    Labeled(R.drawable.ic_hint, t.hint, active = s.hintOn) { g.hint() }
                     if (s.hints > 0) Text("${s.hints}", style = PicoTheme.typography.labelSmall, color = JigColors.OnGold, modifier = Modifier.align(Alignment.TopEnd).clip(CircleShape).drawBehind { drawRect(JigColors.SeamGold) }.padding(horizontal = 4.dp))
                 }
-                RoundIcon(R.drawable.ic_peek, t.peek, active = s.peekOn) { g.peek() }
-                RoundIcon(R.drawable.ic_more, t.more, active = s.overlay == Overlay.MENU) { g.openMenu() }
+                Labeled(R.drawable.ic_peek, t.peek, active = s.peekOn) { g.peek() }
+                MuteKey(s, g)
+                Labeled(R.drawable.ic_more, t.more, active = s.overlay == Overlay.MENU) { g.openMenu() }
             }
         }
         when (s.overlay) {
@@ -387,8 +412,8 @@ fun TurnKeys(s: UiState, g: GameController) {
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        RoundIcon(R.drawable.ic_turn_y, t.turnY, 38) { g.turn(false) }
-        RoundIcon(R.drawable.ic_flip, t.tipX, 38) { g.turn(true) }
+        Labeled(R.drawable.ic_turn_y, t.turnYShort) { g.turn(false) }
+        Labeled(R.drawable.ic_flip, t.tipXShort) { g.turn(true) }
     }
 }
 
@@ -432,12 +457,12 @@ fun DisplayPill(s: UiState, g: GameController) {
     ) {
         if (!s.pillOpen) {
             Text("${lm.short} ✓", style = PicoTheme.typography.labelMedium, color = ink(), maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f).padding(start = 6.dp))
-            RoundIcon(R.drawable.ic_more, t.more, 32) { g.togglePill() }
+            RoundIcon(R.drawable.ic_more, t.more) { g.togglePill() }
         } else {
             Secondary(t.intro, Modifier.weight(1f), small = true) { g.showCard() }
             Spacer(Modifier.width(6.dp))
             Secondary(t.homeShort, Modifier.weight(1f), small = true) { g.goHome() }
-            RoundIcon(R.drawable.ic_close, t.back, 32) { g.togglePill() }
+            RoundIcon(R.drawable.ic_close, t.back) { g.togglePill() }
         }
     }
 }
